@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsString, IsBoolean } from 'class-validator';
 import { IUser } from 'interfaces/users.interface';
 
 export class CreateUserDto implements IUser {
@@ -16,5 +16,8 @@ export class CreateUserDto implements IUser {
 
   @IsString()
   public last_name: string;
+
+  // @IsBoolean()
+  public is_logged_in: boolean;
 
 }

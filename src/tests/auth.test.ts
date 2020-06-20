@@ -15,10 +15,12 @@ describe('Testing Auth', () => {
   describe('[POST] /signup', () => {
     it('response should have the Create userData', () => {
       const userData: CreateUserDto = {
+        id: 1,
         email: 'lkm@gmail.com',
         password: 'q1w2e3r4',
         last_name: 'hagay',
-        first_name: 'levy'
+        first_name: 'levy',
+        is_logged_in: false
       };
       const authRoute = new AuthRoute();
       const app = new App([authRoute]);
@@ -32,10 +34,12 @@ describe('Testing Auth', () => {
   describe('[POST] /login', () => {
     it('response should have the Set-Cookie header with the Authorization token', async () => {
       const userData: CreateUserDto = {
+        id: 1,
         email: 'lim@gmail.com',
         password: 'q1w2e3r4',
         last_name: 'hagay',
-        first_name: 'levy'
+        first_name: 'levy',
+        is_logged_in: false
       };
       process.env.JWT_SECRET = 'jwt_secret';
       const authRoute = new AuthRoute();
