@@ -6,7 +6,7 @@ import * as hpp from 'hpp';
 import * as logger from 'morgan';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
-
+import EmailService from './services/email/email.service'
 class App {
   public app: express.Application;
   public port: (string | number);
@@ -41,8 +41,6 @@ class App {
       this.app.use(cors({ origin: 'domain.com', credentials: true }));
     } else {
       this.app.use(logger('dev'));
-
-      console.log(`🚀 dev`);
       this.app.use(cors());
       /*
       this.app.use(cors({

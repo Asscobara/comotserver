@@ -18,6 +18,15 @@ class AuthController {
     }
   }
 
+  public verify = async (req: Request, res: Response, next: NextFunction) => { 
+    try {
+      const signUpUserData: IUser = await this.authService.verify(req.query);
+      res.status(201).json({ data: signUpUserData, message: 'verify' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public logIn = async (req: Request, res: Response, next: NextFunction) => {
     const userData: CreateUserDto = req.body;
 

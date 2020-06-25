@@ -11,13 +11,11 @@ export class CreateUserDto implements IUser {
   @IsString()
   public password: string;
 
-  @IsString()
   public first_name: string;
-
-  @IsString()
   public last_name: string;
 
-  // @IsBoolean()
   public is_logged_in: boolean;
-
+  public role_id: number;
+  public phone: string;
+  public remark: string;
 }

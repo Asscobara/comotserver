@@ -6,9 +6,30 @@ import { DataStoredInToken, TokenData } from '../interfaces/auth.interface';
 import { isEmptyObject } from '../utils/util';
 import { IUser } from 'interfaces/users.interface';
 import User from './db/user';
+import EmailService from './email/email.service';
+import { v4 as uuid } from 'uuid';
 
 class AuthService {
   public users = new User(`authUser`);
+
+  public async verify(reqParams: any): Promise<IUser> {
+
+    const id = reqParams?.id;
+    if (!id) throw new HttpException(409, `verify user has no id`);
+
+    const key = reqParams?.key;
+    if (!key) throw new HttpException(409, `verify user has no key`);
+
+    const findUser: IUser = await this.users.get(id);
+    if (!findUser) throw new HttpException(409, `verify user does not exists`);
+
+    const currentKey = await this.users.getRegistrationKey(id);
+    if (currentKey[0].registration_key !== key) throw new HttpException(409, `verify user key does not match`);
+
+    await this.users.register(id);
+  
+    return findUser;
+  }
 
   public async signup(userData: CreateUserDto): Promise<IUser> {
     const users: IUser[] = await this.users.getAll();
@@ -20,7 +41,23 @@ class AuthService {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const createUserData: IUser = { ...userData, password: hashedPassword };
 
-    return this.users.create(createUserData);
+    const createRes = await this.users.create(createUserData);
+    const newUser = await this.users.get(createRes.insertId);
+    console.log(JSON.stringify(newUser[0]));
+
+    const key = uuid();
+    await this.users.updateRegistrationKey(newUser[0].id, key);
+    const url = `localhost:3000/verify?id=${newUser[0].id}&key=${key}`;
+    console.log(url);
+    EmailService.sendVerificationEmail(newUser[0], url);
+    /* TODO: 
+        create url 
+        Send verify email.... + link 
+        Add route froverify link
+    */
+
+    return newUser;
+
   }
 
   public async login(userData: CreateUserDto): Promise<{ cookie: string, findUser: IUser }> {
