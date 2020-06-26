@@ -73,6 +73,7 @@ class AuthService {
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
     //TODO: add loggedin/ loggedin datetime to user - update
+
     return { cookie, findUser };
   }
 
@@ -90,7 +91,7 @@ class AuthService {
     const dataStoredInToken: DataStoredInToken = { id: user.id };
     const secret: string = process.env.JWT_SECRET;
     const expiresIn: number = 60 * 60;
-
+    console.log(`dataStoredInToken = ${JSON.stringify(dataStoredInToken)}, secret = ${JSON.stringify(secret)}`)
     return { expiresIn, token: jwt.sign(dataStoredInToken, secret, { expiresIn }) };
   }
 

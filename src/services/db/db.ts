@@ -1,3 +1,5 @@
+import User from "./user";
+
 export abstract class DBBase<T> {
 
     public constructor(public name: string) {
@@ -10,17 +12,31 @@ export abstract class DBBase<T> {
     public abstract async delete(id: number): Promise<T>;
     public abstract async getAll(): Promise<T[]>;
 
-    public createMock() {
-        let queries = this.processSQLFile('./db/sql/mock.sql');
-        queries.forEach( (q: string) => {
-            this.query(q);
-        });
+    public async initDB() {
+        await this.deleteDB();
+        await this.createDB();   
+        await this.defaultsDB();
     }
-    
-    public createDB() {
-        let queries = this.processSQLFile('./db/sql/create.sql');
-        queries.forEach( (q: string) => {
-            this.query(q);
+ 
+    private async createDB() {
+        console.log('creating tables...');
+        this.handleSQLFile('create.sql');
+    }
+
+    private async deleteDB() {
+        console.log('deleting tables...');
+        this.handleSQLFile('delete.sql');
+    }
+
+    private async defaultsDB() {
+        console.log('updating default valuess...');
+        await this.handleSQLFile('defaults.sql');
+    }
+
+    private async handleSQLFile(fileName: string) {
+        let queries = this.processSQLFile(`./src/services/db/sql/${fileName}`);
+        queries.forEach( async (q: string) => {
+            await this.query(q);
         });
     }
     
@@ -61,7 +77,16 @@ export abstract class DBBase<T> {
     
     protected async query(sql: string) {
         let db = this.makeDb();
-        return await db.query(sql)
+        console.log(`executing sql: ${sql}`);
+        try {
+            const sqlReturn =  await db.query(sql);
+            await db.close();    
+            return sqlReturn;
+        } catch(err) {
+            console.error(`query error = ${JSON.stringify(err)}`);
+            return null;
+        }
+
     }
 
 }

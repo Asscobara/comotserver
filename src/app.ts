@@ -6,7 +6,8 @@ import * as hpp from 'hpp';
 import * as logger from 'morgan';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
-import EmailService from './services/email/email.service'
+import User from './services/db/user';
+
 class App {
   public app: express.Application;
   public port: (string | number);
@@ -15,12 +16,17 @@ class App {
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = process.env.PORT || 3000;
-    this.env = process.env.NODE_ENV === 'production' ? true : false;
-
+    this.env = process.env.NODE_ENV === 'production' ? true : false;    
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeSwagger();
     this.initializeErrorHandling();
+
+    if (process.env.NODE_ENV === 'initDb') {
+      console.log(`--> INIT DB`);
+      const d = new User('initDb');
+      d.initDB();
+    }
   }
 
   public listen() {

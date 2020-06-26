@@ -20,7 +20,11 @@ describe('Testing Auth', () => {
         password: 'q1w2e3r4',
         last_name: 'hagay',
         first_name: 'levy',
-        is_logged_in: false
+        is_logged_in: false,
+        role_id: 0,
+        phone: '',
+        remark: '',
+        address_id: 0
       };
       const authRoute = new AuthRoute();
       const app = new App([authRoute]);
@@ -39,7 +43,11 @@ describe('Testing Auth', () => {
         password: 'q1w2e3r4',
         last_name: 'hagay',
         first_name: 'levy',
-        is_logged_in: false
+        is_logged_in: false,
+        role_id: 0,
+        phone: '',
+        remark: '',
+        address_id: 0
       };
       process.env.JWT_SECRET = 'jwt_secret';
       const authRoute = new AuthRoute();

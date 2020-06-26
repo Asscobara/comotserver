@@ -38,10 +38,16 @@ describe('Testing Users', () => {
   describe('[POST] /users', () => {
     it('response statusCode 201 / created', async () => {
       const userData: CreateUserDto = {
+        id: 1,
         email: 'lkm@gmail.com',
         password: 'q1w2e3r4',
         last_name: 'hagay',
-        first_name: 'levy'
+        first_name: 'levy',
+        is_logged_in: false,
+        role_id: 0,
+        phone: '',
+        remark: '',
+        address_id: 0
       };
       const usersRoute = new UserRoute();
       const app = new App([usersRoute]);
@@ -57,10 +63,16 @@ describe('Testing Users', () => {
     it('response statusCode 200 / updated', async () => {
       const userId: number = 1;
       const userData: CreateUserDto = {
+        id: 1,
         email: 'lim@gmail.com',
         password: '1q2w3e4r',
         last_name: 'hagay',
-        first_name: 'levy'
+        first_name: 'levy',
+        is_logged_in: false,
+        role_id: 0,
+        phone: '',
+        remark: '',
+        address_id: 0
       };
       const usersRoute = new UserRoute();
       const app = new App([usersRoute]);

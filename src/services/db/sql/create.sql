@@ -1,30 +1,3 @@
-/*
-
-CREATE TABLE IF NOT EXISTS tasks (
-    task_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    start_date DATE,
-    due_date DATE,
-    status TINYINT NOT NULL,
-    priority TINYINT NOT NULL,
-    description TEXT,
-    created_at TIMESTAMP  DEFAULT CURRENT_TIMESTAMP
-)  ENGINE=INNODB;
-
-
-CREATE TABLE IF NOT EXISTS checklists (
-    todo_id INT AUTO_INCREMENT,
-    task_id INT,
-    todo VARCHAR(255) NOT NULL,
-    is_completed BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (todo_id , task_id),
-    FOREIGN KEY (task_id)
-        REFERENCES tasks (task_id)
-        ON UPDATE RESTRICT ON DELETE CASCADE
-);
-
-*/
-
 CREATE TABLE IF NOT EXISTS comotdb.data_info(
    id INT AUTO_INCREMENT PRIMARY KEY,
    create_date DATE NOT NULL
@@ -34,13 +7,14 @@ CREATE TABLE IF NOT EXISTS comotdb.roles(
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL 
 );
-INSERT INTO comotdb.roles(name) VALUES('admin');
-INSERT INTO comotdb.roles(name) VALUES('manager');
-INSERT INTO comotdb.roles(name) VALUES('user');
-INSERT INTO comotdb.roles(name) VALUES('guest');
 
-
-DROP TABLE comotdb.users;
+CREATE TABLE IF NOT EXISTS comotdb.address(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   title VARCHAR(255),
+   description VARCHAR(255),
+   street VARCHAR(255),
+   city VARCHAR(255)
+);
 
 CREATE TABLE IF NOT EXISTS comotdb.users(
    id INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,7 +29,9 @@ CREATE TABLE IF NOT EXISTS comotdb.users(
    registered BOOLEAN,
    role_id INT,
    register_date DATE,
-   verify_date DATE
-);
-
+   verify_date DATE,
+   address_id INT
+);                 
+                                                                  
 ALTER TABLE comotdb.users ADD CONSTRAINT users_FK FOREIGN KEY (role_id) REFERENCES comotdb.roles(id);
+ALTER TABLE comotdb.users ADD CONSTRAINT address_FK FOREIGN KEY (address_id) REFERENCES comotdb.address(id);

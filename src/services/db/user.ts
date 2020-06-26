@@ -9,7 +9,7 @@ class User extends DBBase<IUser> {
     }
 
     public async get(id: number | string) {
-        return await this.query(`SELECT id, email, password, first_name, last_name, is_logged_in, role_id, phone, remark  
+        return await this.query(`SELECT id, email, password, first_name, last_name, is_logged_in, role_id, phone, remark, address_id  
                                     FROM users WHERE id = ${id}`);
     }
     
@@ -19,7 +19,7 @@ class User extends DBBase<IUser> {
     }
     
     public async update(user: IUser) {
-        return await this.query(`UPDATE users SET email='${user.email}', first_name='${user.first_name}', last_name='${user.last_name}' WHERE id=${user.id}`);
+        return await this.query(`UPDATE users SET email='${user.email}', first_name='${user.first_name}', last_name='${user.last_name}', phone='${user.phone}', address_id=${user.address_id} WHERE id=${user.id}`);
     }
     
     public async getAll() {
