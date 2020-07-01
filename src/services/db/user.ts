@@ -1,6 +1,6 @@
 import { DBBase } from './db';
 import { IUser } from 'interfaces/users.interface';
-
+import { v4 as uuid } from 'uuid';
 
 class User extends DBBase<IUser> {
 
@@ -15,7 +15,7 @@ class User extends DBBase<IUser> {
     
     public async create(user: IUser) {
         return await this.query(`INSERT INTO users(first_name, last_name, email, password, is_logged_in, registered, role_id) 
-                    VALUES('${user.first_name}', '${user.last_name}', '${user.email}', '${user.password}', FALSE, FALSE, 2)`);
+                    VALUES('${user.first_name}', '${user.last_name}', '${user.email}', '${user.password}', FALSE, FALSE, ${user.role_id})`);
     }
     
     public async update(user: IUser) {
@@ -41,6 +41,13 @@ class User extends DBBase<IUser> {
     public async getRegistrationKey(id: number) {
         return await this.query(`SELECT registration_key FROM users WHERE id = ${id}`);
     }
+
+    public async getVerificationUrl(user: IUser) {
+        const key = uuid();
+        await this.updateRegistrationKey(user.id, key);
+        const url = `http://localhost:3000/verify?id=${user.id}&key=${key}`;
+        return url;
+    }   
 }
 
 export default User;

@@ -27,6 +27,7 @@ class App {
       const d = new User('initDb');
       d.initDB();
     }
+
   }
 
   public listen() {

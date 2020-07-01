@@ -5,6 +5,7 @@ import { IUser } from '../interfaces/users.interface';
 import userModel from '../models/users.model';
 import { isEmptyObject } from '../utils/util';
 import User from './db/user';
+import EmailService from './email/email.service';
 
 class UserService {
 
@@ -33,7 +34,13 @@ class UserService {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
     const createUserData: IUser = { ...userData, password: hashedPassword };
 
-    return this.users.create(createUserData);
+    const updatedData = await this.users.create(createUserData);
+    const newUser = await this.users.get(updatedData.insertId);
+
+    const url = await this.users.getVerificationUrl(newUser[0]);
+    EmailService.sendVerificationEmail(newUser[0], url);
+
+    return newUser;
   }
 
   public async updateUser(userId: number, userData: IUser): Promise<IUser[]> {

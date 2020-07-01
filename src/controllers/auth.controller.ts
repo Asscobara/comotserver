@@ -21,7 +21,8 @@ class AuthController {
   public verify = async (req: Request, res: Response, next: NextFunction) => { 
     try {
       const signUpUserData: IUser = await this.authService.verify(req.query);
-      res.status(201).json({ data: signUpUserData, message: 'verify' });
+      res.writeHead(301, {Location: 'http://localhost:4200/'} );
+      res.end();
     } catch (error) {
       next(error);
     }

@@ -7,7 +7,6 @@ import { isEmptyObject } from '../utils/util';
 import { IUser } from 'interfaces/users.interface';
 import User from './db/user';
 import EmailService from './email/email.service';
-import { v4 as uuid } from 'uuid';
 
 class AuthService {
   public users = new User(`authUser`);
@@ -43,19 +42,10 @@ class AuthService {
 
     const createRes = await this.users.create(createUserData);
     const newUser = await this.users.get(createRes.insertId);
-    console.log(JSON.stringify(newUser[0]));
 
-    const key = uuid();
-    await this.users.updateRegistrationKey(newUser[0].id, key);
-    const url = `localhost:3000/verify?id=${newUser[0].id}&key=${key}`;
-    console.log(url);
+    const url = await this.users.getVerificationUrl(newUser[0]);
     EmailService.sendVerificationEmail(newUser[0], url);
-    /* TODO: 
-        create url 
-        Send verify email.... + link 
-        Add route froverify link
-    */
-
+   
     return newUser;
 
   }
