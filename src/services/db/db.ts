@@ -12,12 +12,25 @@ export abstract class DBBase<T> {
     public abstract async delete(id: number): Promise<T>;
     public abstract async getAll(): Promise<T[]>;
 
+    private dbConfig = {
+        host: 'localhost',
+        user: 'root',
+        password: '12345678',
+        database: 'comotdb'
+    };
+
     public async initDB() {
         await this.deleteDB();
-        await this.createDB();   
+        await this.createDB();  
+        await this.createKeys();
         await this.defaultsDB();
     }
  
+    private async createKeys() {
+        console.log('creating table keys...');
+        this.handleSQLFile('createkeys.sql');
+    }
+
     private async createDB() {
         console.log('creating tables...');
         this.handleSQLFile('create.sql');
@@ -34,16 +47,18 @@ export abstract class DBBase<T> {
     }
 
     private async handleSQLFile(fileName: string) {
-        let queries = this.processSQLFile(`./src/services/db/sql/${fileName}`);
-        queries.forEach( async (q: string) => {
-            await this.query(q);
+        let queries = await this.processSQLFile(`./src/services/db/sql/${fileName}`);
+        await queries.forEach( async (q: string) => {
+            setTimeout(async () => {
+                await this.query(q);
+            }, 2000);            
         });
     }
     
-    private processSQLFile(fileName: string) {
+    private async processSQLFile(fileName: string) {
     
         let fs = require('fs');
-        return fs.readFileSync(fileName).toString()
+        return await fs.readFileSync(fileName).toString()
           .replace(/(\r\n|\n|\r)/gm," ") // remove newlines
           .replace(/\s+/g, ' ') // excess white space
           .split(";") // split into all statements
@@ -54,13 +69,7 @@ export abstract class DBBase<T> {
     private makeDb() {
     
         let mysql = require('mysql');
-    
-        let connection = mysql.createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '12345678',
-            database: 'comotdb'
-        });
+        let connection = mysql.createConnection(this.dbConfig);
     
         const util = require( 'util' );
     
@@ -81,12 +90,12 @@ export abstract class DBBase<T> {
         try {
             const sqlReturn =  await db.query(sql);
             await db.close();    
+            console.log(`sql run return value = ${JSON.stringify(sqlReturn)}`);
             return sqlReturn;
         } catch(err) {
             console.error(`query error = ${JSON.stringify(err)}`);
             return null;
         }
-
     }
 
 }

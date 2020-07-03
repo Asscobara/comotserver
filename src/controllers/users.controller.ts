@@ -5,6 +5,13 @@ import UserService from '../services/users.service';
 
 class UsersController {
   public userService = new UserService();
+
+  public findAllRelatedUsers = async (req: Request, res: Response, next: NextFunction) => {
+    const userId: number = Number(req.params.id);
+    const userData: IUser = await this.userService.findUserById(userId);
+    const findAllUsersData: IUser[] = await this.userService.findAllRelatedUsers(userData);
+    res.status(200).json({ data: findAllUsersData, message: 'findAllByUser' });
+  }
   public getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const findAllUsersData: IUser[] = await this.userService.findAllUser();

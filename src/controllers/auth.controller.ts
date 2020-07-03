@@ -7,6 +7,17 @@ import AuthService from '../services/auth.service';
 class AuthController {
   public authService = new AuthService();
 
+  public updatePassword = async (req: Request, res: Response, next: NextFunction) => {
+    const userData: CreateUserDto = req.body;
+
+    try {
+      const signUpUserData: IUser = await this.authService.updatePassword(userData);
+      res.status(201).json({ data: signUpUserData, message: 'password' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   public signUp = async (req: Request, res: Response, next: NextFunction) => {
     const userData: CreateUserDto = req.body;
 

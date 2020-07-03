@@ -11,6 +11,11 @@ class UserService {
 
   public users = new User('user');
   
+  public async findAllRelatedUsers(user: IUser): Promise<IUser[]> {
+    const users: IUser[] = await this.users.getAllRelatedUsers(user);
+    return users;
+  }
+
   public async findAllUser(): Promise<IUser[]> {
     const users: IUser[] = await this.users.getAll();
     return users;
@@ -49,8 +54,6 @@ class UserService {
 
     const findUser: IUser = users.find(user => user.id === userId);
     if (!findUser) throw new HttpException(409, "You're not user");
-
-    userData.password = await bcrypt.hash(userData.password, 10);
     
     return this.users.update(userData);
   }

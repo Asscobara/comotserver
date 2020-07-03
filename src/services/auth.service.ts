@@ -55,10 +55,10 @@ class AuthService {
 
     const users: IUser[] = await this.users.getAll();
     const findUser: IUser = users.find(user => user.email === userData.email);
-    if (!findUser) throw new HttpException(409, `You're email ${userData.email} not found`);
+    if (!findUser) throw new HttpException(409, `You're email ${userData.email} not found`, 1002);
 
     const isPasswordMatching: boolean = await bcrypt.compare(userData.password, findUser.password);
-    if (!isPasswordMatching) throw new HttpException(409, `You're password not matching ${userData.password} <-> ${findUser.password}`);
+    if (!isPasswordMatching) throw new HttpException(409, `You're password not matching ${userData.password} <-> ${findUser.password}`, 1001);
 
     const tokenData = this.createToken(findUser);
     const cookie = this.createCookie(tokenData);
@@ -87,6 +87,18 @@ class AuthService {
 
   public createCookie(tokenData: TokenData): string {
     return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn};`;
+  }
+
+  public async updatePassword(userData: IUser): Promise<IUser> {
+    const hashedPassword = await bcrypt.hash(userData.password, 10);
+    const createUserData: IUser = { ...userData, password: hashedPassword };
+
+    const updatedData = await this.users.updatePassword(createUserData);
+    const newUser = await this.users.get(updatedData.insertId);
+
+    //TODO: EmailService.sendPasswordChangedEmail(newUser[0]);
+
+    return newUser;
   }
 }
 

@@ -11,6 +11,8 @@ export interface IUser {
   phone: string;
   remark: string;
   address_id: number;
+  floor_number: number;
+  apartment_number: number;
 }
 
 export interface IAddress {

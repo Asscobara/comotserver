@@ -21,19 +21,18 @@ class App {
     this.initializeRoutes(routes);
     this.initializeSwagger();
     this.initializeErrorHandling();
+  }
 
+  public listen() {
     if (process.env.NODE_ENV === 'initDb') {
       console.log(`--> INIT DB`);
       const d = new User('initDb');
       d.initDB();
-    }
-
-  }
-
-  public listen() {
-    this.app.listen(this.port, () => {
-      console.log(`🚀 App listening on the port ${this.port}`);
-    });
+    } else {
+      this.app.listen(this.port, () => {
+        console.log(`🚀 App listening on the port ${this.port}`);
+      });
+    } 
   }
 
   public getServer() {
