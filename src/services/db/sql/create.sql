@@ -33,5 +33,19 @@ CREATE TABLE IF NOT EXISTS comotdb.users(
    address_id INT,
    floor_number INT,
    apartment_number INT
-);                 
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.transaction_types(
+   id INT AUTO_INCREMENT PRIMARY KEY,   
+   name VARCHAR(64)
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.transactions(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   amount FLOAT,
+   transaction_type INT,
+   date_time DATE,
+   user_id INT,
+   remark VARCHAR(255)
+);
                                                                   

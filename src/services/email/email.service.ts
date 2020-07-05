@@ -4,7 +4,7 @@ import { IUser } from 'interfaces/users.interface';
 
 class EmailService {
 
-  private static get transporter() {
+  private static getTransporter(template: string) {
       const tr = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -19,7 +19,7 @@ class EmailService {
             extName: '.handlebars',
             partialsDir: './src/services/email/templates',
             layoutsDir: './src/services/email/templates',
-            defaultLayout: 'verify.handlebars',
+            defaultLayout: `${template}.handlebars`,
         },
         viewPath: './src/services/email/templates/'
       }));
@@ -36,10 +36,21 @@ class EmailService {
         };
     }
 
+    public static sendPasswordChangedEmail(user: IUser, url: string) {
+      console.log(JSON.stringify({ name: user.first_name, url: url, password: user.password}));
+      var mailOptions = EmailService.getOptions(user.email, 'ComOt password changed', 'password', { name: user.first_name, url: url, password: user.password});
+      this.getTransporter('password').sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log('ERROR' + error);
+        } else {
+          console.log('Email sent: ' + info.response); 
+        }
+      });
+    }
+
     public static sendVerificationEmail(user: IUser, url: string) {
-      console.log(url);
       var mailOptions = EmailService.getOptions(user.email, 'ComOt activation email', 'verify', { name: user.first_name, registerUrl: url });
-      this.transporter.sendMail(mailOptions, function(error, info){
+      this.getTransporter('verify').sendMail(mailOptions, function(error, info){
         if (error) {
           console.log('ERROR' + error);
         } else {
@@ -52,7 +63,7 @@ class EmailService {
   
           var mailOptions = EmailService.getOptions('asscobara@gmail.com', 'Sending Email using Node.js - COMOT test by myself', 'Test 1234 Hello!', 'verify');
           
-          this.transporter.sendMail(mailOptions, function(error, info){
+          this.getTransporter('verift').sendMail(mailOptions, function(error, info){
             if (error) {
               console.log(error);
             } else {

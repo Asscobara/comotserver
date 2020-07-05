@@ -22,3 +22,12 @@ export interface IAddress {
   street: string;
   city: string;
 }
+
+export interface ITransaction {
+  id: number;
+  amount: number;
+  transaction_type: number;
+  date_time: any;
+  user_id: number;
+  remark: string;
+}
