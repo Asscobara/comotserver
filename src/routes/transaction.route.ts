@@ -2,10 +2,10 @@ import { Router } from 'express';
 import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 
-import TransactionController from 'controllers/transaction.controller';
-import { CreateTransactionDto } from 'dtos/transaction.dto';
+import TransactionController from '../controllers/transaction.controller';
+import { CreateTransactionDto } from '../dtos/transaction.dto';
 
-class AddressRoute implements Route {
+class TransactionRoute implements Route {
   public path = '/transactions';
   public router = Router();
   public transactionController = new TransactionController();
@@ -20,4 +20,4 @@ class AddressRoute implements Route {
   }
 }
 
-export default AddressRoute;
+export default TransactionRoute;

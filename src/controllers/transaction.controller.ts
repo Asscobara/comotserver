@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
-import { IAddress, ITransaction } from '../interfaces/users.interface';
+import { ITransaction } from '../interfaces/users.interface';
 
-import TransactionService from 'services/transaction.service';
-import AddressService from 'services/address.service';
+import TransactionService from '../services/transaction.service';
+import AddressService from '../services/address.service';
 
 class TransactionController {
   

@@ -28,6 +28,15 @@ class Transaction extends DBBase<ITransaction> {
     
     public async update(transaction: ITransaction) {
         return await this.query(`SELECT *  FROM transactions`);
+        /* return await this.query(`UPDATE users SET 
+                            email='${user.email}', 
+                            first_name='${user.first_name}', 
+                            last_name='${user.last_name}', 
+                            phone='${user.phone}', 
+                            address_id=${user.address_id},
+                            floor_number=${user.floor_number}, 
+                            apartment_number=${user.apartment_number}
+                            WHERE id=${user.id}`);*/
     }
     
     public async getAll() {
