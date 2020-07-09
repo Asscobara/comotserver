@@ -6,6 +6,8 @@ import UsersRoute from './routes/users.route';
 import AddressRoute from './routes/address.route';
 import validateEnv from './utils/validateEnv';
 import TransactionRoute from './routes/transaction.route';
+import SuppliersRoute from './routes/suppliers.route';
+import CategoriesRoute from './routes/categories.route';
 
 validateEnv();
 
@@ -14,7 +16,9 @@ const app = new App([
   new UsersRoute(),
   new AuthRoute(),
   new AddressRoute(),
-  new TransactionRoute()
+  new TransactionRoute(),
+  new SuppliersRoute(),
+  new CategoriesRoute()
 ]);
 
 app.listen();

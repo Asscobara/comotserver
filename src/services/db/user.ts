@@ -62,7 +62,7 @@ class User extends DBBase<IUser> {
     }   
 
     public async getAllRelatedUsers(user: IUser): Promise<IUser[]> {        
-        return await this.query(`SELECT * FROM USERS WHERE address_id=${user.address_id}`);
+        return await this.query(`SELECT * FROM users WHERE address_id=${user.address_id} AND role_id<>5`);
     }
 }
 

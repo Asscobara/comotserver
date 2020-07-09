@@ -58,4 +58,32 @@ CREATE TABLE IF NOT EXISTS comotdb.transactions(
    remark VARCHAR(255),
    recipt_id INT
 );
+ 
+CREATE TABLE IF NOT EXISTS comotdb.categories(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.sub_categories(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   description VARCHAR(255) NOT NULL,
+   category_id INT
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.suppliers(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   user_id INT, 
+   category_id INT,
+   sub_categories_id INT[],
+   remark VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.price_list(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   sub_category_id INT,
+   supplier_id INT,
+   price FLOAT
+);
                                                                   

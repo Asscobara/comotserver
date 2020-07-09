@@ -40,3 +40,31 @@ export interface IRecipt {
   date_time: any;
   email_sent: boolean;
 }
+
+export interface ICategory {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface ISubCategory {
+  id: number;
+  name: string;
+  description: string;
+  category_id: number;
+}
+
+export interface ISupplier {
+  id: number;
+  user_id: IUser;
+  remark: string;
+  category_id: number;
+  sub_categories_id: number[];
+}
+
+export interface IPrice {
+  id: number;
+  sub_category_id: number;
+  supplier_id: ISupplier;
+  price: number;
+}
