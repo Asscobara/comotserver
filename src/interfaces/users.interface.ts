@@ -30,4 +30,13 @@ export interface ITransaction {
   date_time: any;
   user_id: number;
   remark: string;
+  send_recipt: boolean;
+}
+
+export interface IRecipt {
+  id: number;
+  recipt_number: string;
+  user_id: number;
+  date_time: any;
+  email_sent: boolean;
 }

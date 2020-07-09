@@ -3,5 +3,6 @@ ALTER TABLE comotdb.users ADD CONSTRAINT address_FK FOREIGN KEY (address_id) REF
 
 ALTER TABLE comotdb.transactions ADD CONSTRAINT transaction_type_FK FOREIGN KEY (transaction_type) REFERENCES comotdb.transaction_types(id);
 ALTER TABLE comotdb.transactions ADD CONSTRAINT users_FK FOREIGN KEY (user_id) REFERENCES comotdb.users(id);
+ALTER TABLE comotdb.transactions ADD CONSTRAINT recipts_FK FOREIGN KEY (recipt_id) REFERENCES comotdb.recipts(id);
 
-        
+ALTER TABLE comotdb.recipts ADD CONSTRAINT users_recipts_FK FOREIGN KEY (user_id) REFERENCES comotdb.users(id);    

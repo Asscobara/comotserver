@@ -8,4 +8,5 @@ export class CreateTransactionDto implements ITransaction {
     public date_time: any;
     public user_id: number;
     public remark: string;
+    public send_recipt: boolean;
 }

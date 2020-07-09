@@ -17,6 +17,7 @@ class TransactionRoute implements Route {
   private initializeRoutes() {
     this.router.get(`${this.path}/:id(\\d+)`, this.transactionController.getAddressTransactions);
     this.router.post(`${this.path}`, validationMiddleware(CreateTransactionDto), this.transactionController.createTransaction);
+    this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateTransactionDto, true), this.transactionController.updateTransaction);
   }
 }
 

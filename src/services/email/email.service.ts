@@ -1,5 +1,6 @@
 import * as nodemailer from 'nodemailer';
-import { IUser } from 'interfaces/users.interface';
+import { IUser, IRecipt, ITransaction } from 'interfaces/users.interface';
+import { getDate } from '../../utils/util';
 
 
 class EmailService {
@@ -58,6 +59,23 @@ class EmailService {
         }
       });
     }
+
+    public static sendUserRecipt(user: IUser, recipt: IRecipt, transaction: ITransaction) {
+      var mailOptions = EmailService.getOptions(user.email, 'ComOt recipt email', 'recipt', { 
+        name: `${user.first_name} ${user.last_name}`, 
+        recipt_number: recipt.recipt_number, 
+        amount: transaction.amount,
+        date: getDate(recipt.date_time)
+       });
+      this.getTransporter('recipt').sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log('ERROR' + error);
+        } else {
+          console.log('Email sent: ' + info.response); 
+        }
+      });
+    }
+
     
     public static testEMail() {
   

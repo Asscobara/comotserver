@@ -1,5 +1,6 @@
 import { DBBase } from './db';
 import { ITransaction, IUser, IAddress } from '../../interfaces/users.interface';
+import { getDate } from './../../utils/util';
 
 class Transaction extends DBBase<ITransaction> {
 
@@ -8,11 +9,11 @@ class Transaction extends DBBase<ITransaction> {
     }
 
     public async get(id: number | string) {
-        return await this.query(`SELECT *  FROM transactions WHERE id = ${id}`);
+        return await this.query(`SELECT *  FROM recipts WHERE id = ${id}`);
     }
 
     public async getAddressTransacions(address: IAddress) {
-        return await this.query(`SELECT * FROM transactions t
+        return await this.query(`SELECT t.id, t.amount, t.transaction_type, t.user_id, t.remark, t.date_time FROM transactions t
                                  INNER JOIN users u
                                  ON u.address_id = ${address.id} AND u.id = t.user_id`);
     }
@@ -27,16 +28,13 @@ class Transaction extends DBBase<ITransaction> {
     }
     
     public async update(transaction: ITransaction) {
-        return await this.query(`SELECT *  FROM transactions`);
-        /* return await this.query(`UPDATE users SET 
-                            email='${user.email}', 
-                            first_name='${user.first_name}', 
-                            last_name='${user.last_name}', 
-                            phone='${user.phone}', 
-                            address_id=${user.address_id},
-                            floor_number=${user.floor_number}, 
-                            apartment_number=${user.apartment_number}
-                            WHERE id=${user.id}`);*/
+        return await this.query(`UPDATE transactions SET 
+                                amount=${transaction.amount}, 
+                                transaction_type=${transaction.transaction_type}, 
+                                user_id=${transaction.user_id},
+                                remark='${transaction.remark}',
+                                date_time='${getDate(transaction.date_time)}'
+                                WHERE id=${transaction.id}`);
     }
     
     public async getAll() {

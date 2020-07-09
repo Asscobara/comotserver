@@ -40,12 +40,22 @@ CREATE TABLE IF NOT EXISTS comotdb.transaction_types(
    name VARCHAR(64)
 );
 
+CREATE TABLE IF NOT EXISTS comotdb.recipts(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   recipt_number VARCHAR(64),
+   user_id INT,
+   date_time DATE,
+   email_sent BOOLEAN
+);
+
 CREATE TABLE IF NOT EXISTS comotdb.transactions(
    id INT AUTO_INCREMENT PRIMARY KEY,
    amount FLOAT,
    transaction_type INT,
    date_time DATE,
+   update_date_time DATE,
    user_id INT,
-   remark VARCHAR(255)
+   remark VARCHAR(255),
+   recipt_id INT
 );
                                                                   

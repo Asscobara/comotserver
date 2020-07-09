@@ -2,7 +2,6 @@ import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from '../dtos/users.dto';
 import HttpException from '../exceptions/HttpException';
 import { IUser } from '../interfaces/users.interface';
-import userModel from '../models/users.model';
 import { isEmptyObject } from '../utils/util';
 import User from './db/user';
 import EmailService from './email/email.service';

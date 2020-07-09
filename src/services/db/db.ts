@@ -97,5 +97,9 @@ export abstract class DBBase<T> {
             return null;
         }
     }
+       
+    protected async notImplemented() {
+        return new Promise<any>((resolve) => resolve());
+    }
 
 }
