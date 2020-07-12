@@ -7,4 +7,6 @@ export class CreateAddressDto implements IAddress {
     public description: string;
     public street: string;
     public city: string;
+    public payment_day_in_month: number;
+    public payment_amount: number;
 }

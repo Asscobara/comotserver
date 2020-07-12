@@ -9,7 +9,19 @@ class User extends DBBase<IUser> {
     }
 
     public async get(id: number | string) {
-        return await this.query(`SELECT id, email, password, first_name, last_name, is_logged_in, role_id, phone, remark, address_id, floor_number, apartment_number 
+        return await this.query(`SELECT id, 
+                                        email, 
+                                        password, 
+                                        first_name, 
+                                        last_name, 
+                                        is_logged_in, 
+                                        role_id, 
+                                        phone, 
+                                        remark, 
+                                        address_id, 
+                                        floor_number, 
+                                        apartment_number,
+                                        registered 
                                 FROM users WHERE id = ${id}`);
     }
 

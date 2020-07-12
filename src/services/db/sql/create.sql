@@ -13,7 +13,9 @@ CREATE TABLE IF NOT EXISTS comotdb.address(
    title VARCHAR(255),
    description VARCHAR(255),
    street VARCHAR(255),
-   city VARCHAR(255)
+   city VARCHAR(255),
+   payment_day_in_month INT,
+   payment_amount FLOAT
 );
 
 CREATE TABLE IF NOT EXISTS comotdb.users(
@@ -76,7 +78,7 @@ CREATE TABLE IF NOT EXISTS comotdb.suppliers(
    id INT AUTO_INCREMENT PRIMARY KEY,
    user_id INT, 
    category_id INT,
-   sub_categories_id INT[],
+   sub_categories_id VARCHAR(255),
    remark VARCHAR(255)
 );
 

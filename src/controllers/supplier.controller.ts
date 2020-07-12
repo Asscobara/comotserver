@@ -16,13 +16,14 @@ class SuppliersController {
     const supplierData: ISupplier = req.body;
 
     try {
-         
-      let createRes = await this.usersService.users.create(supplierData.user_id);
-      supplierData.user_id.id = createRes.insertId;
-      supplierData.user_id.role_id = 5;
-      createRes = await this.supplierService.create(supplierData);      
-      const createSupplierData = await this.supplierService.findById(createRes.insertId);
 
+      let createRes = await this.usersService.users.create(supplierData.user_id);
+      const newUser = await this.usersService.users.get(createRes.insertId);
+
+      supplierData.user_id = newUser[0];
+      createRes = await this.supplierService.create(supplierData);      
+
+      const createSupplierData = await this.supplierService.findById(createRes.insertId);
       res.status(201).json({ data: createSupplierData, message: 'created' });
     } catch (error) {
       next(error);
@@ -33,11 +34,58 @@ class SuppliersController {
     
     const userId: number = Number(req.params.id);
     const userData: IUser = await this.usersService.findUserById(userId);
-    const findAllUsersData: IUser[] = await this.supplierService.getAllRelatedSuppliers(userData, 5);
+    const findAllUsersData: any[] = await this.supplierService.getAllRelatedSuppliers(userData, 5);
 
-    res.status(200).json({ data: findAllUsersData, message: 'findAllByUser' });
+    const allSuppliers: ISupplier[] = [];
+
+    findAllUsersData.forEach(u => {
+      allSuppliers.push({
+        category_id: u.category_id,
+        user_id: {
+          first_name: u.first_name,
+          last_name: u.last_name,
+          email: u.email,
+          phone: u.phone,
+          role_id: u.role_id,
+          password: u.password,
+          id: u.user_id,
+          is_logged_in: u.is_logged_in,
+          remark: u.remark,
+          registered: u.registered,
+          floor_number: u.floor_number,
+          address_id: u.address_id,
+          apartment_number: u.apartment_number
+        },
+        id: u.id,
+        sub_categories_id: u.sub_categories_id,
+        remark: u.remark
+      });
+    });
+
+    res.status(200).json({ data: allSuppliers, message: 'findAllByUser' });
 
   }
+
+  public updateSupplier = async (req: Request, res: Response, next: NextFunction) => {
+    const supplierData: ISupplier = req.body;
+    try {
+      await this.supplierService.update(supplierData.id, supplierData);
+      res.status(201).json({ data: supplierData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  public deleteSupplier = async (req: Request, res: Response, next: NextFunction) => {
+    const supplierId : number = Number(req.params.id);
+    try {
+      const deleteSupplierData = await this.supplierService.delete(supplierId);
+      res.status(200).json({ data: deleteSupplierData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }
 
 export default SuppliersController;

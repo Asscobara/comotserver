@@ -20,4 +20,5 @@ export class CreateUserDto implements IUser {
   public address_id: number;
   public floor_number: number;
   public apartment_number: number;
+  public registered: boolean;
 }

@@ -16,8 +16,8 @@ class SuppliersRoute implements Route {
   private initializeRoutes() {
     this.router.get(`${this.path}/:id(\\d+)`, this.supplierController.findAllRelatedSuppliers);
     this.router.post(`${this.path}`, validationMiddleware(CreateSupplierDto), this.supplierController.createSupplier);
-//    this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateAddressDto, true), this.addressController.updateAdress);
-//    this.router.delete(`${this.path}/:id(\\d+)`, this.addressController.deleteAdress);
+    this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateSupplierDto, true), this.supplierController.updateSupplier);
+    this.router.delete(`${this.path}/:id(\\d+)`, this.supplierController.deleteSupplier);
   }
 }
 

@@ -8,6 +8,8 @@ import validateEnv from './utils/validateEnv';
 import TransactionRoute from './routes/transaction.route';
 import SuppliersRoute from './routes/suppliers.route';
 import CategoriesRoute from './routes/categories.route';
+import SubCategoriesRoute from './routes/subCategories.route';
+import PriceListRoute from './routes/priceList.route';
 
 validateEnv();
 
@@ -18,7 +20,9 @@ const app = new App([
   new AddressRoute(),
   new TransactionRoute(),
   new SuppliersRoute(),
-  new CategoriesRoute()
+  new CategoriesRoute(),
+  new SubCategoriesRoute(),
+  new PriceListRoute()
 ]);
 
 app.listen();

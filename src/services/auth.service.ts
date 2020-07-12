@@ -22,7 +22,7 @@ class AuthService {
     const findUser: IUser = await this.users.get(id);
     if (!findUser) throw new HttpException(409, `verify user does not exists`);
 
-    const currentKey = await this.users.getRegistrationKey(id);
+    const currentKey =  await this.users.getRegistrationKey(id);
     if (currentKey[0].registration_key !== key) throw new HttpException(409, `verify user key does not match`);
 
     await this.users.register(id);
@@ -57,6 +57,7 @@ class AuthService {
     const findUser: IUser = users.find(user => user.email === userData.email);
     if (!findUser) throw new HttpException(409, `You're email ${userData.email} not found`, 1002);
 
+    if(!findUser.registered) throw new HttpException(409, `You're account was not verified`, 1003);
     const isPasswordMatching: boolean = await bcrypt.compare(userData.password, findUser.password);
     if (!isPasswordMatching) throw new HttpException(409, `You're password not matching ${userData.password} <-> ${findUser.password}`, 1001);
 

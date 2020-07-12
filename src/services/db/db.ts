@@ -16,7 +16,8 @@ export abstract class DBBase<T> {
         host: 'localhost',
         user: 'root',
         password: '12345678',
-        database: 'comotdb'
+        database: 'comotdb',
+        multipleStatements: true
     };
 
     public async initDB() {
@@ -28,31 +29,36 @@ export abstract class DBBase<T> {
  
     private async createKeys() {
         console.log('creating table keys...');
-        this.handleSQLFile('createkeys.sql');
+        await this.handleSQLFile('createkeys.sql');
+        console.log('done...');
     }
 
     private async createDB() {
         console.log('creating tables...');
-        this.handleSQLFile('create.sql');
+        await this.handleSQLFile('create.sql');
+        console.log('done...');
     }
 
     private async deleteDB() {
         console.log('deleting tables...');
-        this.handleSQLFile('delete.sql');
+        await this.handleSQLFile('delete.sql');
+        console.log('done...');
     }
 
     private async defaultsDB() {
         console.log('updating default valuess...');
         await this.handleSQLFile('defaults.sql');
+        console.log('done...');
     }
 
     private async handleSQLFile(fileName: string) {
         let queries = await this.processSQLFile(`./src/services/db/sql/${fileName}`);
-        await queries.forEach( async (q: string) => {
-            setTimeout(async () => {
-                await this.query(q);
-            }, 2000);            
+        let fullSql = '';
+        queries.forEach( async (q: string) => {
+            fullSql = `${fullSql}${q};`;            
         });
+
+        await this.query(fullSql);
     }
     
     private async processSQLFile(fileName: string) {
@@ -65,7 +71,7 @@ export abstract class DBBase<T> {
           .map(Function.prototype.call, String.prototype.trim)
           .filter(function(el: any) {return el.length != 0}); // remove any empty ones
     }
-    
+
     private makeDb() {
     
         let mysql = require('mysql');
@@ -74,7 +80,7 @@ export abstract class DBBase<T> {
         const util = require( 'util' );
     
         return {
-          query( sql: any, args?: any ) {
+            query ( sql: any, args?: any ) {
             return util.promisify( connection.query )
               .call( connection, sql, args );
           },
@@ -83,7 +89,7 @@ export abstract class DBBase<T> {
           }
         };
     }
-    
+
     protected async query(sql: string) {
         let db = this.makeDb();
         console.log(`executing sql: ${sql}`);

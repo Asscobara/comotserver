@@ -1,5 +1,6 @@
 import { DBBase } from './db';
 import { ISupplier, IUser } from '../../interfaces/users.interface';
+import User from './user';
 
 class Supplier extends DBBase<ISupplier> {
 
@@ -13,10 +14,15 @@ class Supplier extends DBBase<ISupplier> {
     
     public async create(supplier: ISupplier) {
         return await this.query(`INSERT INTO suppliers(remark, category_id, user_id, sub_categories_id) 
-                                VALUES('${supplier.remark}', ${supplier.category_id}, ${supplier.user_id.id}, ${supplier.sub_categories_id})`);
+                                VALUES('${supplier.remark}', ${supplier.category_id}, ${supplier.user_id.id}, '${supplier.sub_categories_id}')`);
     }
     
     public async update(supplier: ISupplier) {
+        
+        const userDb = new User('supplierUser');
+        const user = supplier.user_id; 
+        await userDb.update(user as any);
+
         return await this.query(`UPDATE suppliers 
                                 SET remark='${supplier.remark}', 
                                 category_id=${supplier.category_id},

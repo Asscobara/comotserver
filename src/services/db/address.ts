@@ -10,15 +10,20 @@ class Address extends DBBase<IAddress> {
     public async get(id: number | string) {
         return await this.query(`SELECT *  FROM address WHERE id = ${id}`);
     }
-    
+
     public async create(address: IAddress) {
-        return await this.query(`INSERT INTO address(title, street, city, description) 
-                    VALUES('${address.title}', '${address.street}', '${address.city}', '${address.description}')`);
+        return await this.query(`INSERT INTO address(title, street, city, description, payment_day_in_month, payment_amount) 
+                    VALUES('${address.title}', '${address.street}', '${address.city}', '${address.description}', ${address.payment_day_in_month}, ${address.payment_amount})`);
     }
     
     public async update(address: IAddress) {
         return await this.query(`UPDATE address 
-                                SET city='${address.city}', description='${address.description}', street='${address.street}', title='${address.title}' 
+                                SET city='${address.city}', 
+                                description='${address.description}', 
+                                street='${address.street}', 
+                                title='${address.title}',
+                                payment_day_in_month=${address.payment_day_in_month}, 
+                                payment_amount=${address.payment_amount} 
                                 WHERE id=${address.id}`);
     }
     
