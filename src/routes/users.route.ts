@@ -20,7 +20,8 @@ class UsersRoute implements Route {
     this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateUserDto, true), this.usersController.updateUser);
     this.router.delete(`${this.path}/:id(\\d+)`, this.usersController.deleteUser);
     this.router.get(`/usersById/:id(\\d+)`, this.usersController.findAllRelatedUsers);
-    
+    this.router.put(`${this.path}/role/:id(\\d+)`, validationMiddleware(CreateUserDto, true), this.usersController.updateRole);
+      
   }
 }
 

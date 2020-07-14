@@ -45,6 +45,10 @@ class User extends DBBase<IUser> {
     public async updatePassword(user: IUser) {
         return await this.query(`UPDATE users SET password='${user.password}' WHERE id=${user.id}`);
     }
+
+    public async updateRole(user: IUser) {
+        return await this.query(`UPDATE users SET role_id=${user.role_id} WHERE id=${user.id}`);
+    }
     
     public async getAll() {
         return await this.query(`SELECT * FROM users`);

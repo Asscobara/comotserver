@@ -65,6 +65,14 @@ class UserService {
     const deleteUserData: IUser[] = users.filter(user => user.id !== findUser.id);
     return this.users.delete(deleteUserData[0].id);
   }
+
+  public async updateRole(user: IUser) {
+    if (!user) throw new HttpException(409, "You're not user");
+    const update = await this.users.updateRole(user);
+    if (!update) throw new HttpException(409, "update role fail");
+
+    return update;
+  }
 }
 
 export default UserService;

@@ -63,6 +63,17 @@ class UsersController {
       next(error);
     }
   }
+
+  public updateRole = async (req: Request, res: Response, next: NextFunction) => {
+    const userData: IUser = req.body;
+    try {
+      const updatedUserData: IUser = await this.userService.updateRole(userData);
+      res.status(200).json({ data: updatedUserData, message: 'updatedRole' });
+    } catch (error) {
+      next(error);
+    }
+  }
+
 }
 
 export default UsersController;

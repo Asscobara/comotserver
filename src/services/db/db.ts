@@ -1,4 +1,3 @@
-import User from "./user";
 
 export abstract class DBBase<T> {
 
@@ -23,14 +22,7 @@ export abstract class DBBase<T> {
     public async initDB() {
         await this.deleteDB();
         await this.createDB();  
-        await this.createKeys();
         await this.defaultsDB();
-    }
- 
-    private async createKeys() {
-        console.log('creating table keys...');
-        await this.handleSQLFile('createkeys.sql');
-        console.log('done...');
     }
 
     private async createDB() {
