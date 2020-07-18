@@ -9,11 +9,11 @@ class Schedule extends DBBase<ISchedule> {
     }
 
     public async get(id: number | string) {
-        return await this.query(`SELECT *  FROM tasks WHERE id = ${id}`);
+        return await this.query(`SELECT *  FROM schedules WHERE id = ${id}`);
     }
   
     public async create(schedule: ISchedule) {        
-        return await this.query(`INSERT INTO tasks(start_date, end_date, recuring, recuring_every_in_days) 
+        return await this.query(`INSERT INTO schedules(start_date, end_date, recuring, recuring_every_in_days) 
                 VALUES('${getDate(schedule.start_date)}', '${getDate(schedule.end_date)}', ${schedule.recuring}, ${schedule.recuring_every_in_days})`);
     }
     

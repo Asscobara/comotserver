@@ -8,7 +8,7 @@ class TasksService extends BaseService<ITask, Task>  {
         return new Task('task');
     }
 
-    public async getAllRelatedTasks(address: IAddress) {
+    public async getAllRelatedTasks(address: IAddress): Promise<ITask[]> {
         return (this.db as Task).getAddressTasks(address);
     }
 }

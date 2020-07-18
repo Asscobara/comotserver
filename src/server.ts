@@ -10,6 +10,7 @@ import SuppliersRoute from './routes/suppliers.route';
 import CategoriesRoute from './routes/categories.route';
 import SubCategoriesRoute from './routes/subCategories.route';
 import PriceListRoute from './routes/priceList.route';
+import TaskRoute from './routes/tasks.route';
 
 validateEnv();
 
@@ -22,7 +23,8 @@ const app = new App([
   new SuppliersRoute(),
   new CategoriesRoute(),
   new SubCategoriesRoute(),
-  new PriceListRoute()
+  new PriceListRoute(),
+  new TaskRoute()
 ]);
 
 app.listen();

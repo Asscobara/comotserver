@@ -9,6 +9,13 @@ INSERT INTO comotdb.transaction_types(id, name) VALUES(1, 'income');
 INSERT INTO comotdb.transaction_types(id, name) VALUES(2, 'expense');
 INSERT INTO comotdb.transaction_types(id, name) VALUES(3, 'none');
 
+INSERT INTO comotdb.task_status(id, name) VALUES(1, 'new');
+INSERT INTO comotdb.task_status(id, name) VALUES(2, 'inProgress');
+INSERT INTO comotdb.task_status(id, name) VALUES(3, 'pending');
+INSERT INTO comotdb.task_status(id, name) VALUES(4, 'done');
+INSERT INTO comotdb.task_status(id, name) VALUES(5, 'aborted');
+INSERT INTO comotdb.task_status(id, name) VALUES(6, 'deleted');
+
 INSERT INTO comotdb.categories(id, name, description) VALUES(1, 'אינסטלציה', 'plumbing');
 INSERT INTO comotdb.categories(id, name, description) VALUES(2, 'חשמל', 'electricity');
 INSERT INTO comotdb.categories(id, name, description) VALUES(3, 'גינון', 'gardening');

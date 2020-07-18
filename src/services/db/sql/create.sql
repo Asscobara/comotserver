@@ -116,8 +116,7 @@ CREATE TABLE IF NOT EXISTS comotdb.schedules(
 
 CREATE TABLE IF NOT EXISTS comotdb.task_status(
    id INT AUTO_INCREMENT PRIMARY KEY,
-   name VARCHAR(64),
-   description VARCHAR(64)
+   name VARCHAR(64)
 );
 
 CREATE TABLE IF NOT EXISTS comotdb.tasks(
