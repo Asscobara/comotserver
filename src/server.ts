@@ -11,6 +11,7 @@ import CategoriesRoute from './routes/categories.route';
 import SubCategoriesRoute from './routes/subCategories.route';
 import PriceListRoute from './routes/priceList.route';
 import TaskRoute from './routes/tasks.route';
+import MailRoute from './routes/mail.route';
 
 validateEnv();
 
@@ -24,7 +25,8 @@ const app = new App([
   new CategoriesRoute(),
   new SubCategoriesRoute(),
   new PriceListRoute(),
-  new TaskRoute()
+  new TaskRoute(),
+  new MailRoute()
 ]);
 
 app.listen();

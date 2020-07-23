@@ -1,10 +1,10 @@
-import { ITask, ISchedule } from 'interfaces/users.interface';
+import { IUser, ITask, ISchedule, ISupplier } from 'interfaces/users.interface';
 
 export class CreateTaskDto implements ITask {
     public id: number;
     public category_id: number;
-    public user_id: number;
-    public sipplier_id: number;
+    public user_id: IUser;
+    public sipplier_id: ISupplier;
     public create_date: any;
     public status_id: number;
     public update_date: any;

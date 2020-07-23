@@ -3,17 +3,29 @@ import { ITransaction, ITask } from '../interfaces/users.interface';
 
 import AddressService from '../services/address.service';
 import TasksService from '../services/tasks.service';
+import SuppliersService from '../services/suppliers.service';
+import UserService from '../services/users.service';
+import ScheduleService from '../services/schedule.service';
 
 class TaskController {
   
   public taskService = new TasksService();
-  public addressService = new AddressService;
+  public addressService = new AddressService();
+  public supliersService = new SuppliersService();
+  public usersService = new UserService();
+  public scheduleService = new ScheduleService();
 
   public getAllRelatedTasks = async (req: Request, res: Response, next: NextFunction) => { 
     const addressId: number = Number(req.params.id);
     const address = await this.addressService.findById(addressId);
     try {
       const taskData: ITask[] = await this.taskService.getAllRelatedTasks(address);
+      for(let i=0; i < taskData.length; i++) {
+        taskData[i].sipplier_id = await this.supliersService.findById(taskData[i].sipplier_id as any);
+        taskData[i].sipplier_id.user_id = (await this.usersService.users.get(taskData[i].sipplier_id.user_id as any))[0];
+        taskData[i].user_id = (await this.usersService.users.get(taskData[i].user_id as any))[0];
+        taskData[i].schedule_id = (await this.scheduleService.findById(taskData[i].schedule_id as any));
+      }
       res.status(200).json({ data: taskData, message: 'findTasksByAddress' });
     } catch (error) {
       next(error);

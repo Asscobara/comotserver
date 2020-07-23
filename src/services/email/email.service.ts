@@ -1,5 +1,5 @@
 import * as nodemailer from 'nodemailer';
-import { IUser, IRecipt, ITransaction } from 'interfaces/users.interface';
+import { IUser, IRecipt, ITransaction, ISendEmail } from 'interfaces/users.interface';
 import { getDate } from '../../utils/util';
 
 
@@ -76,6 +76,19 @@ class EmailService {
       });
     }
 
+
+    public static sendGeneralMessage(mailData: ISendEmail) {
+      var mailOptions = EmailService.getOptions(mailData.emails.join(';'), 'ComOt general email', 'genmail', { 
+        message: mailData.message
+       });
+      this.getTransporter('genmail').sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log('ERROR' + error);
+        } else {
+          console.log('Email sent: ' + info.response); 
+        }
+      });
+    }
     
     public static testEMail() {
   

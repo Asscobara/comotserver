@@ -83,8 +83,8 @@ export interface ISchedule {
 export interface ITask {
   id: number;
   category_id: number;
-  user_id: number;
-  sipplier_id: number;
+  user_id: IUser;
+  sipplier_id: ISupplier;
   create_date: any;
   status_id: number;
   update_date: any;
@@ -93,6 +93,11 @@ export interface ITask {
   description: string;
   schedule_id: ISchedule;
   address_id: number;
+}
+
+export interface ISendEmail {
+  emails: string[];
+  message: number;
 }
 
 export interface IReportRequest {

@@ -42,17 +42,18 @@ class Task extends DBBase<ITask> {
     public async update(task: ITask) {
         
         const schedule = new Schedule('taskSchedule');
-        await  schedule.update(task.schedule_id);
-
+        console.log(`task.schedule_id = ${JSON.stringify(task.schedule_id)}`)
+        await schedule.update(task.schedule_id);
+        
         return await this.query(`UPDATE tasks SET 
                                 category_id=${task.category_id}, 
-                                user_id=${task.user_id},
-                                sipplier_id=${task.sipplier_id},
+                                user_id=${task.user_id.id},
+                                sipplier_id=${task.sipplier_id.id},
                                 status_id=${task.status_id},
                                 grade=${task.grade},
                                 price=${task.price},
                                 address_id=${task.address_id},
-                                schedule_id=${task.schedule_id},
+                                schedule_id=${task.schedule_id.id},
                                 description='${task.description}',
                                 update_date=NOW()
                                 WHERE id=${task.id}`);
