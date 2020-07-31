@@ -27,7 +27,7 @@ class Task extends DBBase<ITask> {
 
         return await this.query(`INSERT INTO tasks(category_id, user_id, sipplier_id, status_id, grade, price, address_id, schedule_id, description, update_date, create_date) 
                 VALUES(${task.category_id}, 
-                        ${task.user_id}, 
+                        ${task.user_id.id}, 
                         ${task.sipplier_id},
                         ${task.status_id},
                         ${task.grade},

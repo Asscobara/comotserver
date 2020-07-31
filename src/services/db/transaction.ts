@@ -24,12 +24,12 @@ class Transaction extends DBBase<ITransaction> {
 
     public async create(transaction: ITransaction) {
         return await this.query(`INSERT INTO transactions(amount, transaction_type, user_id, remark, date_time) 
-                VALUES(${transaction.amount}, ${transaction.transaction_type}, ${transaction.user_id}, '${transaction.remark}', NOW())`);
+                VALUES(${transaction.transaction_type == 1 ? transaction.amount : -1 * transaction.amount}, ${transaction.transaction_type}, ${transaction.user_id}, '${transaction.remark}', NOW())`);
     }
     
     public async update(transaction: ITransaction) {
         return await this.query(`UPDATE transactions SET 
-                                amount=${transaction.amount}, 
+                                amount=${transaction.transaction_type == 1 ? transaction.amount : -1 * transaction.amount}, 
                                 transaction_type=${transaction.transaction_type}, 
                                 user_id=${transaction.user_id},
                                 remark='${transaction.remark}',

@@ -1,26 +1,25 @@
-import TasksService from './tasks.service';
-import UserService from './users.service';
-import AddressService from './address.service';
-import TransactionService from './transaction.service';
-import { IAddress, ITransaction } from '../interfaces/users.interface';
+import { IPaymentReport, ISuppliersReport, ITaskReport } from '../interfaces/users.interface';
+import Reports from './db/reports';
 
-class ReportsService  {
+class ReportsService {
     
-    tasks: TasksService;
-    users: UserService;
-    address: AddressService;
-    transactions: TransactionService;
+    reports: Reports = new Reports('reports');
 
-    public async getAddressTransaciotnsByDates(address: IAddress, from_date: any, to_date: any) {
-        this.transactions = new TransactionService();    
-        const currentTransactions = await this.transactions.getAddressTransacions(address);        
-        return currentTransactions.filter((transaction: ITransaction) => transaction.date_time > from_date && transaction.date_time < to_date);
+    public async getPaymentsStatus(addressId: number, from_date: any): Promise<IPaymentReport[]> {
+        const rep = await this.reports.getPaymentsReport(addressId, from_date);
+        return rep;
     }
 
-    public async getPaymentsStatus(address: IAddress, from_date: any, to_date: any) {
-       const  currentTransactions = await this.getAddressTransaciotnsByDates(address, from_date, to_date);
-           
+    public async getSupliersReport(addressId: number): Promise<ISuppliersReport> { 
+        const rep = await this.reports.getSupliersReport(addressId);
+        return rep;
     }
+
+    public async getTasksReport(addressId: number): Promise<ITaskReport[]> {
+        const rep = await this.reports.getTasksReport(addressId);
+        return rep;
+    }
+
 }
 
 export default ReportsService;

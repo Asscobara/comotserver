@@ -21,7 +21,7 @@ class ReciptService extends BaseService<IRecipt, Recipt> {
             EmailService.sendUserRecipt(user, newRecipt, transaction);
         }
         return createdRecipt;
-      }
+    }
 
 }
 
