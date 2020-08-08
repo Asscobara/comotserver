@@ -13,6 +13,10 @@ import PriceListRoute from './routes/priceList.route';
 import TaskRoute from './routes/tasks.route';
 import MailRoute from './routes/mail.route';
 import ReportsRoute from './routes/reports.route';
+import Configuration from './app-config';
+
+console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`); 
+Configuration.init(process.env.NODE_ENV);
 
 validateEnv();
 

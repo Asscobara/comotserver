@@ -2,7 +2,7 @@
   "name": "comotserver",
   "version": "0.0.1",
   "scripts": {
-    "start": "cross-env NODE_ENV=dev ts-node --transpile-only src/server.ts",
+    "start": "cross-env NODE_ENV=production ts-node --transpile-only src/server.ts",
     "initDB": "cross-env NODE_ENV=initDb ts-node --transpile-only src/server.ts",
     "dev": "cross-env NODE_ENV=development nodemon --watch src --delay 1 --exec 'ts-node' src/server.ts",
     "test": "jest --forceExit --detectOpenHandles",

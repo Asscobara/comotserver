@@ -7,6 +7,7 @@ import * as logger from 'morgan';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
 import User from './services/db/user';
+import Configuration from './app-config';
 
 class App {
   public app: express.Application;
@@ -14,9 +15,11 @@ class App {
   public env: boolean;
 
   constructor(routes: Routes[]) {
+
     this.app = express();
-    this.port = process.env.PORT || 3000;
+    this.port = process.env.PORT || Configuration.active.app.port;
     this.env = process.env.NODE_ENV === 'production' ? true : false;    
+    
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
     this.initializeSwagger();
@@ -48,24 +51,6 @@ class App {
     } else {
       this.app.use(logger('dev'));
       this.app.use(cors());
-      /*
-      this.app.use(cors({
-        allowedHeaders:[
-          'Origin', 
-          'Content-Type', 
-          'X-Auth-Token'
-        ], 
-        origin: '*', 
-        methods: [
-          'GET', 
-          'POST', 
-          'PATCH', 
-          'PUT', 
-          'DELETE', 
-          'OPTIONS'
-        ]})
-      );
-      */
     }
 
     this.app.use(express.json());

@@ -1,8 +1,8 @@
+import Configuration from "../../app-config";
 
 export abstract class DBBase<T> {
 
     public constructor(public name: string) {
-
     }
 
     public abstract async get(id: number | string): Promise<T>;
@@ -11,13 +11,7 @@ export abstract class DBBase<T> {
     public abstract async delete(id: number): Promise<T>;
     public abstract async getAll(): Promise<T[]>;
 
-    private dbConfig = {
-        host: 'localhost',
-        user: 'root',
-        password: '12345678',
-        database: 'comotdb',
-        multipleStatements: true
-    };
+    private dbConfig = Configuration.active.db;
 
     public async initDB() {
         await this.deleteDB();
