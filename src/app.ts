@@ -17,7 +17,7 @@ class App {
   constructor(routes: Routes[]) {
 
     this.app = express();
-    this.port = process.env.PORT || Configuration.active.app.port;
+    this.port = Configuration.active.app.port;
     this.env = process.env.NODE_ENV === 'production' ? true : false;    
     
     this.initializeMiddlewares();
@@ -47,7 +47,7 @@ class App {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(logger('combined'));
-      this.app.use(cors({ origin: 'domain.com', credentials: true }));
+      this.app.use(cors({ origin: 'http://comot.co.il', credentials: true }));
     } else {
       this.app.use(logger('dev'));
       this.app.use(cors());

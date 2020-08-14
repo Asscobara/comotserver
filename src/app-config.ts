@@ -1,9 +1,7 @@
-
-
 const all_configuration = {    
     dev: {
         app: {
-            port: 666        
+            port: 3000        
         },
         db: {
             host: 'localhost',
@@ -11,11 +9,20 @@ const all_configuration = {
             password: '12345678',
             database: 'comotdb',
             multipleStatements: true
-       } 
+        },
+        mail: {
+            host: 'smtp.hostinger.co.il',
+            port: 587,
+            secure: false, // upgrade later with STARTTLS
+            auth: {
+                user: 'admin@comot.co.il',
+                pass: 'Bagay1bagay!'
+            } 
+        },        
     },
     prod: {
         app: {
-            port: 3000
+            port: 666
         },
         db: {
             host: '31.170.166.129',
@@ -23,9 +30,18 @@ const all_configuration = {
             password: 'Bagay1bagay!',
             database: 'u376266110_comotdb',
             multipleStatements: true
-        }
+        },
+        mail: {
+            host: 'smtp.hostinger.co.il',
+            port: 587,
+            secure: false, // upgrade later with STARTTLS
+            auth: {
+                user: 'admin@comot.co.il',
+                pass: 'Bagay1bagay!'
+            }
+        },
     }
-}
+};
 
 class Configuration { 
 

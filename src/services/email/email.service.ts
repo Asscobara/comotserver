@@ -1,18 +1,14 @@
 import * as nodemailer from 'nodemailer';
 import { IUser, IRecipt, ITransaction, ISendEmail } from 'interfaces/users.interface';
 import { getDate } from '../../utils/util';
+import Configuration from './../../app-config';
 
 
 class EmailService {
 
   private static getTransporter(template: string) {
-      const tr = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'asscobara@gmail.com',
-          pass: 'bagay1bagay1'
-        }
-      });
+    
+      const tr = nodemailer.createTransport(Configuration.active.mail);
       
       const hbs = require('nodemailer-handlebars');
       tr.use('compile', hbs({
@@ -29,7 +25,7 @@ class EmailService {
 
     private static getOptions(destEmail: string, title: string, template: string, context: any) {
       return {
-          from: 'asscobara@gmail.com',
+          from: 'admin@comot.co.il',
           to: destEmail,
           subject: title,
           template: template,
