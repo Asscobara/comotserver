@@ -1,6 +1,7 @@
 import { DBBase } from './db';
 import { IUser } from 'interfaces/users.interface';
 import { v4 as uuid } from 'uuid';
+import Configuration from './../../app-config';
 
 class User extends DBBase<IUser> {
 
@@ -73,7 +74,7 @@ class User extends DBBase<IUser> {
     public async getVerificationUrl(user: IUser) {
         const key = uuid();
         await this.updateRegistrationKey(user.id, key);
-        const url = `http://localhost:3000/verify?id=${user.id}&key=${key}`;
+        const url = `${Configuration.active.app.server}/verify?id=${user.id}&key=${key}`;
         return url;
     }   
 

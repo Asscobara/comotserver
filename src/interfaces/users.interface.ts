@@ -67,6 +67,7 @@ export interface ISupplier {
 
 export interface IPrice {
   id: number;
+  name: string;
   sub_category_id: number;
   supplier_id: ISupplier;
   price: number;

@@ -13,7 +13,8 @@ class PriceListRoute implements Route {
     this.initializeRoutes();
   }
 
-  private initializeRoutes() {
+  private initializeRoutes() {    
+    this.router.get(`${this.path}/:id(\\d+)`, this.priceListController.findPriceListBySupplierId);
     this.router.get(`${this.path}`, this.priceListController.findAllPriceList);
     this.router.post(`${this.path}`, validationMiddleware(CreatePriceDto), this.priceListController.createPrice);
     this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreatePriceDto, true), this.priceListController.updatePrice);

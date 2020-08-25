@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS comotdb.suppliers(
 
 CREATE TABLE IF NOT EXISTS comotdb.price_list(
    id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(64),
    sub_category_id INT,
    supplier_id INT,
    price FLOAT,

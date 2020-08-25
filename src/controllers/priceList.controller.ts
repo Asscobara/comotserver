@@ -17,6 +17,16 @@ class PriceListController {
     }
   }
 
+  public findPriceListBySupplierId = async (req: Request, res: Response, next: NextFunction) => {
+    try{
+        const supplierId : number = Number(req.params.id);
+        const priceData: IPrice[] = await this.priceListService.findPriceListBySupplierId(supplierId);
+        res.status(200).json({ data: priceData, message: 'findPriceListBySupplierId' });
+    } catch(error) {
+        next(error);
+    }   
+ }
+
   public findAllPriceList = async (req: Request, res: Response, next: NextFunction) => {
     try{
         const priceData: IPrice[] = await this.priceListService.findAll();

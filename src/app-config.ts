@@ -1,7 +1,8 @@
 const all_configuration = {    
     dev: {
         app: {
-            port: 3000        
+            port: 3000,
+            server: 'http://localhost:3000'   
         },
         db: {
             host: 'localhost',
@@ -22,7 +23,8 @@ const all_configuration = {
     },
     prod: {
         app: {
-            port: 666
+            port: 666,
+            server: 'http://45.80.152.140:666'
         },
         db: {
             host: '31.170.166.129',
