@@ -54,6 +54,15 @@ class TransactionController {
     }
   }
 
+  public deleteTransaction = async (req: Request, res: Response, next: NextFunction) => {
+    const transactionId: number = Number(req.params.id);
+    try {
+      const updateAdressData: ITransaction = await this.transactionService.delete(transactionId);
+      res.status(200).json({ data: updateAdressData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  }
 
 }
 

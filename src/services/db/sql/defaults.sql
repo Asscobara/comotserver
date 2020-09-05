@@ -24,3 +24,7 @@ INSERT INTO comotdb.categories(id, name, description) VALUES(5, 'ניקיון', 
 
 INSERT INTO comotdb.sub_categories(id, name, description, category_id) VALUES(1, 'ביקור', 'visit', 1);
 INSERT INTO comotdb.sub_categories(id, name, description, category_id) VALUES(2, 'ביקור', 'visit', 2);
+
+INSERT INTO comotdb.features(id, name, level) VALUES(1, 'whatsApp', 1);
+INSERT INTO comotdb.features(id, name, level) VALUES(2, 'noAdds', 2);
+

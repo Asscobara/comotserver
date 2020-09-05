@@ -58,12 +58,7 @@ class UserService {
   }
 
   public async deleteUser(userId: number): Promise<IUser[]> {
-    const users: IUser[] = await this.users.getAll();
-    const findUser: IUser = users.find(user => user.id === userId);
-    if (!findUser) throw new HttpException(409, "You're not user");
-
-    const deleteUserData: IUser[] = users.filter(user => user.id !== findUser.id);
-    return this.users.delete(deleteUserData[0].id);
+    return this.users.delete(userId);
   }
 
   public async updateRole(user: IUser) {

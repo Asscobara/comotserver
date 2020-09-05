@@ -9,5 +9,12 @@ DROP TABLE comotdb.roles;
 DROP TABLE comotdb.address;
 DROP TABLE comotdb.transaction_types;
 DROP TABLE comotdb.categories;
+DROP TABLE comotdb.tasks;
+DROP TABLE comotdb.configuration;
+DROP TABLE comotdb.data_info;
+DROP TABLE comotdb.features;
+DROP TABLE comotdb.schedules;
+DROP TABLE comotdb.task_status;
+
 SET foreign_key_checks = 1;
 

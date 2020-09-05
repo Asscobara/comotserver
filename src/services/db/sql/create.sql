@@ -24,6 +24,12 @@ CREATE TABLE IF NOT EXISTS comotdb.address(
    payment_amount FLOAT
 );
 
+CREATE TABLE IF NOT EXISTS comotdb.features(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(64),
+   level INT
+);
+
 CREATE TABLE IF NOT EXISTS comotdb.users(
    id INT AUTO_INCREMENT PRIMARY KEY,
    first_name VARCHAR(255) NOT NULL,
@@ -41,6 +47,7 @@ CREATE TABLE IF NOT EXISTS comotdb.users(
    address_id INT,
    floor_number INT,
    apartment_number INT,
+   feature_list VARCHAR(255),
    CONSTRAINT users_FK FOREIGN KEY (role_id) REFERENCES comotdb.roles(id),
    CONSTRAINT address_FK FOREIGN KEY (address_id) REFERENCES comotdb.address(id)
 );
@@ -139,3 +146,29 @@ CREATE TABLE IF NOT EXISTS comotdb.tasks(
    CONSTRAINT schedule_status_FK FOREIGN KEY (status_id) REFERENCES comotdb.task_status(id),
    CONSTRAINT schedule_schedule_FK FOREIGN KEY (schedule_id) REFERENCES comotdb.schedules(id)
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
