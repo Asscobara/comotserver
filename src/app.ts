@@ -8,6 +8,7 @@ import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
 import User from './services/db/user';
 import Configuration from './app-config';
+import PaymentsJob from './jobs/payments.job';
 
 class App {
   public app: express.Application;
@@ -24,6 +25,7 @@ class App {
     this.initializeRoutes(routes);
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.initializeJobs();
   }
 
   public listen() {
@@ -41,13 +43,24 @@ class App {
   public getServer() {
     return this.app;
   }
+  
+  private initializeJobs() {
+    const paymentJob = new PaymentsJob();
+    paymentJob.init();
+  }
 
   private initializeMiddlewares() {
     if (this.env) {
       this.app.use(hpp());
       this.app.use(helmet());
       this.app.use(logger('combined'));
-      this.app.use(cors({ origin: 'http://comot.co.il', credentials: true }));
+      this.app.use(cors({ 
+        origin: [
+          'http://comot.co.il', 
+          'http://www.comot.co.il'
+        ], 
+        credentials: true 
+      }));
     } else {
       this.app.use(logger('dev'));
       this.app.use(cors());

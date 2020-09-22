@@ -2,6 +2,7 @@ import { DBBase } from './db';
 import { IUser } from 'interfaces/users.interface';
 import { v4 as uuid } from 'uuid';
 import Configuration from './../../app-config';
+import { isNumber } from 'util';
 
 class User extends DBBase<IUser> {
 
@@ -78,8 +79,14 @@ class User extends DBBase<IUser> {
         return url;
     }   
 
-    public async getAllRelatedUsers(user: IUser): Promise<IUser[]> {        
-        return await this.query(`SELECT * FROM users WHERE address_id=${user.address_id} AND role_id<>5`);
+    public async getAllRelatedUsers(user: IUser | number): Promise<IUser[]> {        
+        const id = isNumber(user) ? user: user.address_id;
+        return await this.query(`SELECT * FROM users WHERE address_id=${id} AND role_id<>5`);
+    }
+
+    public async getAllRelatedUsersByRole(user: IUser | number, roleId: number) {
+        const id = isNumber(user) ? user: user.address_id;
+        return await this.query(`SELECT * FROM users WHERE address_id=${id} AND role_id=${roleId}`);
     }
 }
 

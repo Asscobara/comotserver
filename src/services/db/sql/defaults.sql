@@ -28,3 +28,8 @@ INSERT INTO comotdb.sub_categories(id, name, description, category_id) VALUES(2,
 INSERT INTO comotdb.features(id, name, level) VALUES(1, 'whatsApp', 1);
 INSERT INTO comotdb.features(id, name, level) VALUES(2, 'noAdds', 2);
 
+INSERT INTO comotdb.alert_status(id, name) VALUES(1, 'new');
+INSERT INTO comotdb.alert_status(id, name) VALUES(2, 'read');
+INSERT INTO comotdb.alert_status(id, name) VALUES(3, 'deleted');
+
+INSERT INTO comotdb.alert_code(id, code) VALUES(1, 'missing_user_payment');

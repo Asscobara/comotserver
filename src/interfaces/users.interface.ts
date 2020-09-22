@@ -119,3 +119,12 @@ export interface ITaskReport {
   status_id: number;
   total_tasks: number;
 } 
+
+export interface IAlert {
+  id: number;
+  create_date: any;
+  message: string;
+  sendto_user_id: number;
+  status_id: number;
+  code_id: number;
+}

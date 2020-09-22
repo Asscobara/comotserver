@@ -5,12 +5,18 @@ import { IUser } from '../interfaces/users.interface';
 import { isEmptyObject } from '../utils/util';
 import User from './db/user';
 import EmailService from './email/email.service';
+import Address from './db/address';
 
 class UserService {
 
   public users = new User('user');
   
-  public async findAllRelatedUsers(user: IUser): Promise<IUser[]> {
+  public async findAllRelatedUsersByRole(user: IUser | number, roleId: number): Promise<IUser[]> {
+    const users: IUser[] = await this.users.getAllRelatedUsersByRole(user, roleId);
+    return users;
+  }
+
+  public async findAllRelatedUsers(user: IUser | number): Promise<IUser[]> {
     const users: IUser[] = await this.users.getAllRelatedUsers(user);
     return users;
   }
