@@ -4,6 +4,11 @@ import Reports from './db/reports';
 class ReportsService {
     
     reports: Reports = new Reports('reports');
+    
+    public async getTotalPaymentSummary(addressId: number, from_date: any): Promise<IPaymentReport> {
+        const rep = await this.reports.getTotalPaymentSummary(addressId, from_date);
+        return rep[0];
+    }
 
     public async getPaymentsStatus(addressId: number, from_date: any): Promise<IPaymentReport[]> {
         const rep = await this.reports.getPaymentsReport(addressId, from_date);

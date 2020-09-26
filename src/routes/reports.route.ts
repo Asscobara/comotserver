@@ -11,7 +11,8 @@ class ReportsRoute implements Route {
     this.initializeRoutes();
   }
 
-  private initializeRoutes() {
+  private initializeRoutes() {    
+    this.router.get(`${this.path}/payments_summary/:id(\\d+)/:from_date`, this.reportsController.getTotalPaymentSummary);
     this.router.get(`${this.path}/payments/:id(\\d+)/:from_date`, this.reportsController.getPaymentsStatus);
     this.router.get(`${this.path}/suppliers/:id(\\d+)/`, this.reportsController.getSupliersReport);
     this.router.get(`${this.path}/tasks/:id(\\d+)/`, this.reportsController.getTasksReport);

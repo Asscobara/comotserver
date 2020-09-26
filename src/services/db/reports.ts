@@ -4,6 +4,14 @@ import { getDate } from './../../utils/util';
 
 class Reports extends DBBase<any> {
     
+    public async getTotalPaymentSummary(addressId: number, from_date: any) {
+        return await this.query(`
+                SELECT sum(t.amount) AS total_payment_summary FROM transactions t
+                INNER JOIN users u
+                ON u.address_id = ${addressId} AND u.id = t.user_id
+                AND t.date_time BETWEEN '${getDate(from_date)}' AND NOW()`);
+    }
+
     public async getTasksReport(addressId: number) {
         return await this.query(`
                 SELECT status_id, count(id) AS total_tasks FROM tasks

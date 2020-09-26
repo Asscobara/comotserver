@@ -15,6 +15,8 @@ class alertRoute implements Route {
 
   private initializeRoutes() {
     this.router.get(`${this.path}/:id(\\d+)`, this.alertController.getAlertsByUserId);
+    this.router.put(`${this.path}/:id(\\d+)`, validationMiddleware(CreateAlertDto, true), this.alertController.updateAlert);
+    this.router.delete(`${this.path}/:id(\\d+)`, this.alertController.deleteAlert);
   }
 }
 

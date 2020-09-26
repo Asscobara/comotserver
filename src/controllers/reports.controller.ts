@@ -8,6 +8,20 @@ class ReportsController {
   public reportsService = new ReportsService();
   public usersService = new UsersService();
 
+
+  public getTotalPaymentSummary = async (req: Request, res: Response, next: NextFunction) => {
+      
+    const addressId: number = Number(req.params.id);
+    const from_date: string = req.params.from_date;
+
+    try {        
+        const paymentsStatus = await this.reportsService.getTotalPaymentSummary(addressId, from_date)
+        res.status(201).json({ data: paymentsStatus, message: 'totalPaymentSummary' });
+    } catch (error) {
+        next(error);
+    }
+  }
+
   public getPaymentsStatus = async (req: Request, res: Response, next: NextFunction) => {
     
     const addressId: number = Number(req.params.id);

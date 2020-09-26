@@ -26,11 +26,14 @@ class Alert extends DBBase<IAlert> {
     }
 
     public async getAllByUser(userId: number) {
-        return await this.query(`SELECT * FROM alerts WHERE sendto_user_id=${userId}`);
+        return await this.query(`SELECT * FROM alerts WHERE sendto_user_id=${userId} ORDER BY status_id`);
     }
 
     public async delete(id: number) {
         return await this.query(`DELETE FROM alerts WHERE id=${id}`);
+    }
+    public async markAsDeleted(id: number) {
+        return await this.query(`UPDATE alerts SET status_id='3' WHERE id=${id}`);
     }
 }
 
