@@ -78,8 +78,8 @@ class PaymentsJob {
         console.log('init job');
         var rule = new schedule.RecurrenceRule();
         rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-        rule.hour = [0, new schedule.Range(0, 23)]; // 18;
-        rule.minute = [0, new schedule.Range(0, 59)]; // 0;
+        rule.hour = 18;
+        rule.minute = 0;
         schedule.scheduleJob(rule, async () => {
             this.perform();
         });

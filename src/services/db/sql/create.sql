@@ -168,6 +168,24 @@ CREATE TABLE IF NOT EXISTS comotdb.alerts(
    CONSTRAINT alerts_code_FK FOREIGN KEY (code_id) REFERENCES comotdb.alert_code(id)
 );
 
+CREATE TABLE IF NOT EXISTS comotdb.event_status(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(64)
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.events(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(64),
+   create_date DATE,
+   schedule_id INT,
+   remark VARCHAR(512),
+   status_id INT,
+   address_id INT,
+   CONSTRAINT events_schedule_FK FOREIGN KEY (schedule_id) REFERENCES comotdb.schedules(id),
+   CONSTRAINT events_status_FK FOREIGN KEY (status_id) REFERENCES comotdb.event_status(id),
+   CONSTRAINT events_address_FK FOREIGN KEY (address_id) REFERENCES comotdb.address(id)
+);
+
 
 
 

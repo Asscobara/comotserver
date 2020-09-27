@@ -41,6 +41,7 @@ export abstract class DBBase<T> {
         let queries = await this.processSQLFile(`./src/services/db/sql/${fileName}`);
         let fullSql = '';
         queries.forEach( async (q: string) => {
+            q = q.replace(`comotdb.`, `${this.dbConfig.database}.`);
             fullSql = `${fullSql}${q};`;            
         });
 
@@ -66,8 +67,8 @@ export abstract class DBBase<T> {
         const util = require( 'util' );
     
         return {
-            query ( sql: any, args?: any ) {
-            return util.promisify( connection.query )
+            async query ( sql: any, args?: any ) {
+            return await util.promisify( connection.query )
               .call( connection, sql, args );
           },
           close() {

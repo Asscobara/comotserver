@@ -1,4 +1,6 @@
 SET foreign_key_checks = 0;
+DROP TABLE comotdb.events;
+DROP TABLE comotdb.event_status;
 DROP TABLE comotdb.transactions;
 DROP TABLE comotdb.sub_categories;
 DROP TABLE comotdb.price_list;
@@ -15,6 +17,7 @@ DROP TABLE comotdb.data_info;
 DROP TABLE comotdb.features;
 DROP TABLE comotdb.schedules;
 DROP TABLE comotdb.task_status;
-
+DROP TABLE comotdb.alerts;
+DROP TABLE comotdb.alert_status;
+DROP TABLE comotdb.alert_code;
 SET foreign_key_checks = 1;
-

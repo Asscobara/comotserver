@@ -9,7 +9,7 @@ class Task extends DBBase<ITask> {
     }
 
     public async get(id: number | string) {
-        return await this.query(`SELECT *  FROM tasks WHERE id = ${id}`);
+        return await this.query(`SELECT * FROM tasks WHERE id = ${id}`);
     }
 
     public async getAddressTasks(address: IAddress) {
@@ -42,7 +42,7 @@ class Task extends DBBase<ITask> {
     public async update(task: ITask) {
         
         const schedule = new Schedule('taskSchedule');
-        console.log(`task.schedule_id = ${JSON.stringify(task.schedule_id)}`)
+
         await schedule.update(task.schedule_id);
         
         return await this.query(`UPDATE tasks SET 

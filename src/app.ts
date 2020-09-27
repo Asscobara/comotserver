@@ -21,11 +21,13 @@ class App {
     this.port = Configuration.active.app.port;
     this.env = process.env.NODE_ENV === 'production' ? true : false;    
     
-    this.initializeMiddlewares();
-    this.initializeRoutes(routes);
-    this.initializeSwagger();
-    this.initializeErrorHandling();
-    this.initializeJobs();
+    if (process.env.NODE_ENV !== 'initDb') {
+      this.initializeMiddlewares();
+      this.initializeRoutes(routes);
+      this.initializeSwagger();
+      this.initializeErrorHandling();
+      this.initializeJobs();
+    }
   }
 
   public listen() {

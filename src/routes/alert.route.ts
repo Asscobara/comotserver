@@ -4,7 +4,7 @@ import validationMiddleware from '../middlewares/validation.middleware';
 import { CreateAlertDto } from '../dtos/alert.dto';
 import alertController from '../controllers/alert.controller';
 
-class alertRoute implements Route {
+class AlertRoute implements Route {
   public path = '/alerts';
   public router = Router();
   public alertController = new alertController();
@@ -20,4 +20,4 @@ class alertRoute implements Route {
   }
 }
 
-export default alertRoute;
+export default AlertRoute;

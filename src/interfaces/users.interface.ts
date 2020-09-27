@@ -128,3 +128,13 @@ export interface IAlert {
   status_id: number;
   code_id: number;
 }
+
+export interface IEvent {
+  id: number;
+  name: string;
+  create_date: any;
+  schedule_id: ISchedule;
+  remark: string;
+  status_id: number;
+  address_id: number;
+}
