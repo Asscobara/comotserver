@@ -28,8 +28,8 @@ class User extends DBBase<IUser> {
     }
 
     public async create(user: IUser) {
-        return await this.query(`INSERT INTO users(first_name, last_name, email, password, is_logged_in, registered, role_id, address_id, floor_number, apartment_number) 
-                    VALUES('${user.first_name}', '${user.last_name}', '${user.email}', '${user.password}', FALSE, FALSE, ${user.role_id}, ${user.address_id}, ${user.floor_number}, ${user.apartment_number})`);
+        return await this.query(`INSERT INTO users(first_name, last_name, email, phone, password, is_logged_in, registered, role_id, address_id, floor_number, apartment_number) 
+                    VALUES('${user.first_name}', '${user.last_name}', '${user.email}', '${user.phone}', '${user.password}', FALSE, FALSE, ${user.role_id}, ${user.address_id}, ${user.floor_number}, ${user.apartment_number})`);
     }
     
     public async update(user: IUser) {

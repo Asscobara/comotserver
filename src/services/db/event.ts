@@ -26,7 +26,7 @@ class Event extends DBBase<IEvent> {
                                         address_id) 
                                 VALUES('${event.name}', 
                                 NOW(), 
-                                ${schedule_id}, 
+                                ${schedule_id.insertId}, 
                                 '${event.remark}', 
                                 ${event.status_id}, 
                                 ${event.address_id})`);         
