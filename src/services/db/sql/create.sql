@@ -3,12 +3,6 @@ CREATE TABLE IF NOT EXISTS comotdb.data_info(
    create_date DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS comotdb.configuration(
-   id INT AUTO_INCREMENT PRIMARY KEY,
-   ckey VARCHAR(255),
-   cvalue VARCHAR(255) 
-);
-
 CREATE TABLE IF NOT EXISTS comotdb.roles(
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL 
@@ -22,6 +16,14 @@ CREATE TABLE IF NOT EXISTS comotdb.address(
    city VARCHAR(255),
    payment_day_in_month INT,
    payment_amount FLOAT
+);
+
+CREATE TABLE IF NOT EXISTS comotdb.configuration(
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   ckey VARCHAR(255),
+   cvalue VARCHAR(255),
+   address_id INT,
+   CONSTRAINT configuration_address_FK FOREIGN KEY (address_id) REFERENCES comotdb.address(id)
 );
 
 CREATE TABLE IF NOT EXISTS comotdb.features(
@@ -181,15 +183,11 @@ CREATE TABLE IF NOT EXISTS comotdb.events(
    remark VARCHAR(512),
    status_id INT,
    address_id INT,
+   user_ids VARCHAR(2048),
    CONSTRAINT events_schedule_FK FOREIGN KEY (schedule_id) REFERENCES comotdb.schedules(id),
    CONSTRAINT events_status_FK FOREIGN KEY (status_id) REFERENCES comotdb.event_status(id),
    CONSTRAINT events_address_FK FOREIGN KEY (address_id) REFERENCES comotdb.address(id)
 );
-
-
-
-
-
 
 
 

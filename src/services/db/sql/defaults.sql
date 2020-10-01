@@ -33,6 +33,7 @@ INSERT INTO comotdb.alert_status(id, name) VALUES(2, 'read');
 INSERT INTO comotdb.alert_status(id, name) VALUES(3, 'deleted');
 
 INSERT INTO comotdb.alert_code(id, code) VALUES(1, 'missing_user_payment');
+INSERT INTO comotdb.alert_code(id, code) VALUES(2, 'event_about_to_start');
 
 INSERT INTO comotdb.event_status(id, name) VALUES(1, 'new');
 INSERT INTO comotdb.event_status(id, name) VALUES(2, 'canceled');

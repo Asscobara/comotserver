@@ -137,4 +137,5 @@ export interface IEvent {
   remark: string;
   status_id: number;
   address_id: number;
+  user_ids: IUser[];
 }

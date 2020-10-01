@@ -56,6 +56,17 @@ class EmailService {
       });
     }
 
+    public static sendEventReminderEmail(user: IUser, date: string) {
+      var mailOptions = EmailService.getOptions(user.email, 'ComOt event reminder email', 'event', { name: user.first_name, date: date });
+      this.getTransporter('event').sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log('ERROR' + error);
+        } else {
+          console.log('Email sent: ' + info.response); 
+        }
+      });
+    }
+
     public static sendUserRecipt(user: IUser, recipt: IRecipt, transaction: ITransaction) {
       var mailOptions = EmailService.getOptions(user.email, 'ComOt recipt email', 'recipt', { 
         name: `${user.first_name} ${user.last_name}`, 

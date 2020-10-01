@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        h1 { 
+            color: red;
+        }
+        .item {
+            border: solid 1px;
+            border-radius: 15px;    
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: medium; 
+            padding: 1em;       
+        }
+        .container {
+            border: cornflowerblue solid 2px;
+            border-radius: 15px;
+            margin: 5em;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body dir="rtl"> 
+    <div class="container">
+        <h2>זו תזכורת מוועד הבית</h2>
+        
+        <P>
+            שלום {{name}}, 
+            אירוע של הבניין עומד להתחיל בתאריך
+            {{date}}
+        </P>    
+        <p>
+            בברכה,
+            <br/>
+            וועד הבניין
+        </p>
+    </div>
+</body>
+</html>

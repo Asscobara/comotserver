@@ -9,12 +9,14 @@ import errorMiddleware from './middlewares/error.middleware';
 import User from './services/db/user';
 import Configuration from './app-config';
 import PaymentsJob from './jobs/payments.job';
+import BaseJob from './jobs/base.job';
+import EventsJob from './jobs/events.job';
 
 class App {
   public app: express.Application;
   public port: (string | number);
   public env: boolean;
-
+  private jobs: BaseJob[];
   constructor(routes: Routes[]) {
 
     this.app = express();
@@ -47,8 +49,9 @@ class App {
   }
   
   private initializeJobs() {
-    const paymentJob = new PaymentsJob();
-    paymentJob.init();
+    this.jobs = [];
+    this.jobs.push(new PaymentsJob());
+    this.jobs.push(new EventsJob());    
   }
 
   private initializeMiddlewares() {

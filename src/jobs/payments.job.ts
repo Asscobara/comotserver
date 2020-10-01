@@ -4,14 +4,20 @@ import AddressService from '../services/address.service';
 import TransactionService from '../services/transaction.service';
 import UserService from "../services/users.service";
 import AlertService from "../services/alert.service";
+import BaseJob from './base.job'
 
 import { IAddress, ITransaction, IUser, IAlert } from "../interfaces/users.interface";
 
 
-class PaymentsJob {
-   public alertService = new AlertService();
+class PaymentsJob extends BaseJob {
 
-   public async perform() {
+    public alertService = new AlertService();
+    
+    constructor() {
+        super('payments');
+    }
+
+    protected async perform() {
         
         console.log('start perform job');
         const addressService = new AddressService();
@@ -21,7 +27,7 @@ class PaymentsJob {
         const allBuildings = await addressService.findAll();
         const allPayments = await transactionService.findAll();    
         
-        allBuildings.forEach( async (address: IAddress) => {
+        allBuildings?.forEach( async (address: IAddress) => {
             const allManagers = await userService.findAllRelatedUsersByRole(address.id, 2);
             const currectUsers = await userService.findAllRelatedUsers(address.id);
             currectUsers.forEach((user: IUser) => {
@@ -73,17 +79,6 @@ class PaymentsJob {
         });
         return found == null;
     }
-
-    public init() {
-        console.log('init job');
-        var rule = new schedule.RecurrenceRule();
-        rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-        rule.hour = 18;
-        rule.minute = 0;
-        schedule.scheduleJob(rule, async () => {
-            this.perform();
-        });
-    }
 }
   
-  export default PaymentsJob;
+export default PaymentsJob;

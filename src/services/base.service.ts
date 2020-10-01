@@ -14,6 +14,10 @@ abstract class BaseService<I, T extends DBBase<I>> {
      this.db = this.createDb();   
   }   
 
+  public async get(id: number): Promise<I> {
+    return await this.db.get(id);
+  }
+
   public async findAll(): Promise<I[]> {
     const all: I[] = await this.db.getAll();
     return all;

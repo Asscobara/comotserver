@@ -23,13 +23,15 @@ class Event extends DBBase<IEvent> {
                                         schedule_id, 
                                         remark, 
                                         status_id, 
-                                        address_id) 
+                                        address_id,
+                                        user_ids) 
                                 VALUES('${event.name}', 
                                 NOW(), 
                                 ${schedule_id.insertId}, 
                                 '${event.remark}', 
                                 ${event.status_id}, 
-                                ${event.address_id})`);         
+                                ${event.address_id},
+                                '${event.user_ids.map(u => u.id).join(',')}')`);         
     }
     
     public async update(event: IEvent) {
@@ -41,6 +43,7 @@ class Event extends DBBase<IEvent> {
                                     status_id=${event.status_id},
                                     name='${event.name}',
                                     remark='${event.remark}',
+                                    user_ids='${event.user_ids.map(u => u.id).join(',')}'
                                     WHERE id=${event.id}`);
     }
     
