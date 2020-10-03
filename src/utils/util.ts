@@ -15,3 +15,7 @@ export function getDiffInDays(date1: Date, date2: Date) {
 export function log(message: string) {
   console.log(message);
 }
+
+export function printDebug(msg: string, obj: any) {
+  console.log(`${msg} = ${JSON.stringify(obj)}`);
+}

@@ -7,7 +7,7 @@ import { isEmptyObject } from '../utils/util';
 import { IUser } from 'interfaces/users.interface';
 import User from './db/user';
 import EmailService from './email/email.service';
-import Configuration from './../app-config';
+import AppConfiguration from './../app-config';
 
 class AuthService {
   public users = new User(`authUser`);
@@ -98,7 +98,7 @@ class AuthService {
     const updatedData = await this.users.updatePassword(createUserData);
     const newUser = await this.users.get(updatedData.insertId);
     
-    EmailService.sendPasswordChangedEmail(userData, `${Configuration.active.app.server}`);
+    EmailService.sendPasswordChangedEmail(userData, `${AppConfiguration.active.app.server}`);
 
     return newUser;
   }

@@ -139,3 +139,14 @@ export interface IEvent {
   address_id: number;
   user_ids: IUser[];
 }
+
+export interface IConfiguration {
+  data: IConfigurationData[];
+  address_id: number;
+}
+
+export interface IConfigurationData {
+  id: number;
+  key: string;
+  value: any;
+}

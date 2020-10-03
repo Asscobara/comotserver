@@ -2,10 +2,13 @@ import { NextFunction, Request, Response } from 'express';
 import { IAddress } from '../interfaces/users.interface';
 
 import AddressService from '../services/address.service';
+import ConfigurationService from '../services/configuration.service';
+import { printDebug } from '../utils/util';
 
 class AddressController {
   
   public addressService = new AddressService();
+  public configurationService = new ConfigurationService();
 
   public getAddressByUserId = async (req: Request, res: Response, next: NextFunction) => {
     const userId: number = Number(req.params.id);
@@ -22,8 +25,11 @@ class AddressController {
     const addressData: IAddress = req.body;
 
     try {
+      ConfigurationService
       const createAddressData: IAddress = await this.addressService.create(addressData);
-      res.status(201).json({ data: createAddressData, message: 'created' });
+      // printDebug(`***************************** createAddressData`, createAddressData);      
+      await this.configurationService.createAddressConfig( (createAddressData as any).insertId);
+      res.status(201).json({ data: createAddressData, message: 'address created with configuration' });
     } catch (error) {
       next(error);
     }

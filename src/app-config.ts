@@ -45,14 +45,14 @@ const all_configuration = {
     }
 };
 
-class Configuration { 
+class AppConfiguration { 
 
     public static active = all_configuration.dev;
     public static init(env: string) {
         if (env == 'production') {
-            Configuration.active = all_configuration.prod;
+            AppConfiguration.active = all_configuration.prod;
         } 
     }
 }
 
-export default Configuration;
+export default AppConfiguration;

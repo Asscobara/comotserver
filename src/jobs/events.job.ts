@@ -34,7 +34,8 @@ class EventsJob extends BaseJob {
                  const today = new Date();                 
                  const startDate = new Date(schedule.start_date);
                  const diffInDays = getDiffInDays(startDate, today);
-                 if (diffInDays == 1) { // [HL] TODO: get from configuration.
+                 const event_alert_days = this.getConfigurationValue(address.id, 'event_alert_days');
+                 if (diffInDays >= +event_alert_days) {
                      const invitedUserIds = (event.user_ids as any).split(',');   
                      invitedUserIds.forEach(async (userId: number) => {
                         const user: IUser = await userService.findUserById(+userId);
@@ -50,11 +51,13 @@ class EventsJob extends BaseJob {
                                 status_id: 1,
                                 code_id: 2
                             };
-                            this.shouldAddAlert(candidateAlert).then((add: boolean)=> {
+                            this.shouldAddAlert(address.id, candidateAlert).then((add: boolean)=> {
                                 if (add) {
-                                    console.log(`adding new alert [ ${JSON.stringify(candidateAlert)} ]`);
                                     this.alertService.create(candidateAlert);
-                                    EmailService.sendEventReminderEmail(user, getDate(startDate));
+                                    const sendEmailAlerts = this.getConfigurationValue(address.id, 'send_email_alerts');
+                                    if (sendEmailAlerts == 'ture') {
+                                        EmailService.sendEventReminderEmail(user, getDate(startDate));
+                                    }
                                 }
                             });                            
                         }
@@ -64,7 +67,8 @@ class EventsJob extends BaseJob {
         });
     } 
     
-    public async shouldAddAlert(alert: IAlert) {
+    public async shouldAddAlert(addressId: number, alert: IAlert) {
+        const eventAlert = this.getConfigurationValue(addressId, 'event_alert');
         const allAlerts = await this.alertService.findAll();
         const found = allAlerts.find(a => {
                 return a.code_id == alert.code_id && 
@@ -72,7 +76,7 @@ class EventsJob extends BaseJob {
                    a.status_id == alert.status_id && 
                    a.sendto_user_id == alert.sendto_user_id
         });
-        return found == null;
+        return found == null && eventAlert == 'true';
     }
 }
   

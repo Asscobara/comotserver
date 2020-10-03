@@ -7,7 +7,7 @@ import * as logger from 'morgan';
 import Routes from './interfaces/routes.interface';
 import errorMiddleware from './middlewares/error.middleware';
 import User from './services/db/user';
-import Configuration from './app-config';
+import AppConfiguration from './app-config';
 import PaymentsJob from './jobs/payments.job';
 import BaseJob from './jobs/base.job';
 import EventsJob from './jobs/events.job';
@@ -20,7 +20,7 @@ class App {
   constructor(routes: Routes[]) {
 
     this.app = express();
-    this.port = Configuration.active.app.port;
+    this.port = AppConfiguration.active.app.port;
     this.env = process.env.NODE_ENV === 'production' ? true : false;    
     
     if (process.env.NODE_ENV !== 'initDb') {

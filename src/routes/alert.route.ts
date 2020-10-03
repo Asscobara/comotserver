@@ -2,12 +2,12 @@ import { Router } from 'express';
 import Route from '../interfaces/routes.interface';
 import validationMiddleware from '../middlewares/validation.middleware';
 import { CreateAlertDto } from '../dtos/alert.dto';
-import alertController from '../controllers/alert.controller';
+import AlertController from '../controllers/alert.controller';
 
 class AlertRoute implements Route {
   public path = '/alerts';
   public router = Router();
-  public alertController = new alertController();
+  public alertController = new AlertController();
 
   constructor() {
     this.initializeRoutes();

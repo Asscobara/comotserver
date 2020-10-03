@@ -39,3 +39,10 @@ INSERT INTO comotdb.event_status(id, name) VALUES(1, 'new');
 INSERT INTO comotdb.event_status(id, name) VALUES(2, 'canceled');
 INSERT INTO comotdb.event_status(id, name) VALUES(3, 'deleted');
 INSERT INTO comotdb.event_status(id, name) VALUES(4, 'active');
+
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('send_email_alerts', 'true');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('event_alert', 'true');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('event_alert_days', '1');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('payment_alert', 'true');
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));

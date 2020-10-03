@@ -13,12 +13,13 @@ import PriceListRoute from './routes/priceList.route';
 import TaskRoute from './routes/tasks.route';
 import MailRoute from './routes/mail.route';
 import ReportsRoute from './routes/reports.route';
-import Configuration from './app-config';
+import AppConfiguration from './app-config';
 import AlertRoute from './routes/alert.route';
 import EventRoute from './routes/events.route';
+import ConfigurationRoute from './routes/configuration.route';
 
 console.log(`process.env.NODE_ENV = ${process.env.NODE_ENV}`); 
-Configuration.init(process.env.NODE_ENV);
+AppConfiguration.init(process.env.NODE_ENV);
 
 validateEnv();
 
@@ -36,7 +37,8 @@ const app = new App([
   new MailRoute(),
   new ReportsRoute(),
   new AlertRoute(),
-  new EventRoute()
+  new EventRoute(),
+  new ConfigurationRoute()
 ]);
 
 app.listen();
