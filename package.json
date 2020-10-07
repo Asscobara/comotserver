@@ -1,6 +1,6 @@
 {
   "name": "comotserver",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "start": "cross-env NODE_ENV=production ts-node --transpile-only src/server.ts",
     "initDB": "cross-env NODE_ENV=initDb ts-node --transpile-only src/server.ts",
