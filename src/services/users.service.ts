@@ -49,7 +49,10 @@ class UserService {
 
     const url = await this.users.getVerificationUrl(newUser[0]);
     EmailService.sendVerificationEmail(newUser[0], url);
-
+    // new manager - send email to myself 
+    if (newUser[0].roleId == 2) {
+      EmailService.sendGeneralMessage({emails:['asscobara@gmail.com'], message: `New manager registered ${JSON.stringify(newUser[0])}`});
+    }
     return newUser;
   }
 

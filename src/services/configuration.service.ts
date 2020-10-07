@@ -41,6 +41,12 @@ class ConfigurationService extends BaseService<IConfiguration, Configuration>  {
         });
         return configuration;
     }
+
+    public async getConfigurationValue(addressId: number, key: string) {
+        const addressConfig = await this.getByAddress(addressId);
+        const a = addressConfig.data.find(d => (d as any).key == key);
+        return (a as any)?.value;
+    }     
 }
 
 export default ConfigurationService;

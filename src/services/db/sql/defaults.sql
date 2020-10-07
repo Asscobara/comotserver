@@ -34,6 +34,8 @@ INSERT INTO comotdb.alert_status(id, name) VALUES(3, 'deleted');
 
 INSERT INTO comotdb.alert_code(id, code) VALUES(1, 'missing_user_payment');
 INSERT INTO comotdb.alert_code(id, code) VALUES(2, 'event_about_to_start');
+INSERT INTO comotdb.alert_code(id, code) VALUES(3, 'task_max_new_days');
+INSERT INTO comotdb.alert_code(id, code) VALUES(4, 'task_max_pending_days');
 
 INSERT INTO comotdb.event_status(id, name) VALUES(1, 'new');
 INSERT INTO comotdb.event_status(id, name) VALUES(2, 'canceled');
@@ -44,5 +46,8 @@ INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('send_email_alerts', 'tru
 INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('event_alert', 'true');
 INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('event_alert_days', '1');
 INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('payment_alert', 'true');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('task_max_new_days', '5');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('task_max_pending_days', '5');
+INSERT INTO comotdb.configuration(ckey, cvalue) VALUES('task_alert', 'true');
 
 SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));

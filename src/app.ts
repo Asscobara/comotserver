@@ -11,6 +11,7 @@ import AppConfiguration from './app-config';
 import PaymentsJob from './jobs/payments.job';
 import BaseJob from './jobs/base.job';
 import EventsJob from './jobs/events.job';
+import TasksJob from './jobs/tasks.job';
 
 class App {
   public app: express.Application;
@@ -51,7 +52,8 @@ class App {
   private initializeJobs() {
     this.jobs = [];
     this.jobs.push(new PaymentsJob());
-    this.jobs.push(new EventsJob());    
+    this.jobs.push(new EventsJob()); 
+    this.jobs.push(new TasksJob()); 
   }
 
   private initializeMiddlewares() {

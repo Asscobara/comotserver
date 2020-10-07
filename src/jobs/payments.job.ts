@@ -1,7 +1,6 @@
 import AddressService from '../services/address.service';
 import TransactionService from '../services/transaction.service';
 import UserService from "../services/users.service";
-import AlertService from "../services/alert.service";
 import BaseJob from './base.job'
 
 import { IAddress, ITransaction, IUser, IAlert } from "../interfaces/users.interface";
@@ -9,15 +8,12 @@ import { printDebug } from "../utils/util";
 
 class PaymentsJob extends BaseJob {
 
-    public alertService = new AlertService();
-    
     constructor() {
         super('payments');
     }
 
     protected async perform() {
         
-        console.log('start perform job');
         const addressService = new AddressService();
         const transactionService = new TransactionService();
         const userService = new UserService();
@@ -53,9 +49,8 @@ class PaymentsJob extends BaseJob {
                                 status_id: 1,
                                 code_id: 1
                             };
-                            this.shouldAddAlert(address.id, candidateAlert).then((add: boolean)=> {
+                            this.shouldAddAlert(address.id, candidateAlert, 'payment_alert').then((add: boolean)=> {
                                 if (add) {
-                                    console.log(`adding new alert [ ${JSON.stringify(candidateAlert)} ]`);
                                     this.alertService.create(candidateAlert);
                                 }
                             });                            
@@ -64,20 +59,7 @@ class PaymentsJob extends BaseJob {
                 });                
            });           
         });
-
-        console.log('end perform job');
     } 
-    
-    public async shouldAddAlert(addressId: number, alert: IAlert) {
-        const allAlerts = await this.alertService.findAll();
-        const paymentAlert = this.getConfigurationValue(addressId, 'payment_alert');
-        const found = allAlerts.find(a => {
-                return a.code_id == alert.code_id && 
-                   a.message == alert.message && 
-                   a.sendto_user_id == alert.sendto_user_id
-        });
-        return found == null && paymentAlert == 'true';
-    }
 }
   
 export default PaymentsJob;

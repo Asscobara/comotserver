@@ -98,7 +98,7 @@ export interface ITask {
 
 export interface ISendEmail {
   emails: string[];
-  message: number;
+  message: string;
 }
 
 export interface IReportRequest {
